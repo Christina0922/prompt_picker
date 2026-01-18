@@ -403,21 +403,12 @@ export default function HomePage() {
               <div key={idx} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full px-4 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-all duration-200"
+                  className="w-full px-4 py-4 text-left hover:bg-gray-50 transition-all duration-200"
                 >
-                  <span className="font-semibold text-gray-900 pr-4 text-base md:text-lg">{item.q}</span>
-                  <svg
-                    className={`w-4 h-4 text-gray-400 transition-transform duration-200 flex-shrink-0 ${openFaq === idx ? 'rotate-180' : ''}`}
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    strokeWidth="2"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
+                  <span className="font-semibold text-gray-900 text-base md:text-lg block">{item.q}</span>
                 </button>
                 {openFaq === idx && (
-                  <div className="px-4 pb-4 pt-1 text-sm text-gray-600 leading-relaxed animate-fadeIn">
+                  <div className="px-4 pb-4 pt-1 text-sm text-gray-600 leading-relaxed">
                     {item.a}
                   </div>
                 )}
