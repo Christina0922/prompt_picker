@@ -59,7 +59,7 @@ export default function HomePage() {
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
                 <Link href="/tool" className="btn-primary text-base px-8 py-4 text-center">
-                  지금 바로 만들어보기 →
+                  지금 바로 만들어보기
                 </Link>
                 <a href="#examples" className="btn-secondary text-base px-8 py-4 text-center">
                   예시 먼저 보기
@@ -95,28 +95,13 @@ export default function HomePage() {
               </div>
               <div className="space-y-2">
                 <div className="bg-indigo-50 rounded-lg p-3 border border-indigo-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-900">A. 초간단 (빠른 시작)</span>
-                    <svg className="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                  <span className="text-sm font-semibold text-gray-900">A. 초간단 (빠른 시작)</span>
                 </div>
                 <div className="bg-purple-50 rounded-lg p-3 border border-purple-100">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-900">B. 균형 표준 (무난)</span>
-                    <svg className="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                  <span className="text-sm font-semibold text-gray-900">B. 균형 표준 (무난)</span>
                 </div>
                 <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm font-semibold text-gray-900">C~E. 3가지 더...</span>
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </div>
+                  <span className="text-sm font-semibold text-gray-900">C~E. 3가지 더...</span>
                 </div>
               </div>
             </div>
@@ -210,7 +195,7 @@ export default function HomePage() {
 
             <div className="text-center">
               <Link href="/tool" className="btn-primary px-8 py-4 text-lg">
-                이 예시로 바로 생성하기 →
+                이 예시로 바로 생성하기
               </Link>
             </div>
           </div>
@@ -307,23 +292,23 @@ export default function HomePage() {
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">✓</span>
-                    <span>빠르게 → A</span>
+                    <span>빠르게: A</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">✓</span>
-                    <span>안전하게 → B</span>
+                    <span>안전하게: B</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">✓</span>
-                    <span>정확하게 → C</span>
+                    <span>정확하게: C</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">✓</span>
-                    <span>형식 맞춰 → D</span>
+                    <span>형식 맞춰: D</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">✓</span>
-                    <span>다양하게 → E</span>
+                    <span>다양하게: E</span>
                   </li>
                 </ul>
               </div>
@@ -637,7 +622,7 @@ export default function HomePage() {
               10초면 원하는 프롬프트를 만들 수 있습니다. 신용카드 필요 없습니다.
             </p>
             <Link href="/tool" className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-colors shadow-xl">
-              무료로 시작하기 →
+              무료로 시작하기
             </Link>
           </div>
         </div>
