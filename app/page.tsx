@@ -132,8 +132,8 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-2xl border-2 border-gray-300 overflow-hidden">
-              <table className="w-full">
+            <div className="overflow-hidden rounded-2xl border-4 border-gray-400">
+              <table className="w-full border-collapse bg-white">
                 <tbody>
                   {[
                     { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
@@ -142,13 +142,13 @@ export default function HomePage() {
                     { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
                     { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
                   ].map((strategy, idx, arr) => (
-                    <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-300' : ''}`}>
-                      <td className="px-8 py-6 w-20 border-r-2 border-gray-300 bg-gray-50">
+                    <tr key={strategy.id} style={{ borderBottom: idx !== arr.length - 1 ? '3px solid #d1d5db' : 'none' }}>
+                      <td className="px-8 py-6 bg-gray-100 align-top" style={{ width: '100px', borderRight: '3px solid #d1d5db' }}>
                         <div className="text-3xl font-bold text-gray-900 text-center">{strategy.id}</div>
                       </td>
-                      <td className="px-8 py-6">
-                        <div className="text-lg font-bold text-gray-900 mb-1">{strategy.label}</div>
-                        <div className="text-sm text-gray-600">{strategy.desc}</div>
+                      <td className="px-8 py-6 align-top">
+                        <div className="text-lg font-bold text-gray-900 mb-2">{strategy.label}</div>
+                        <div className="text-base text-gray-600">{strategy.desc}</div>
                       </td>
                     </tr>
                   ))}
