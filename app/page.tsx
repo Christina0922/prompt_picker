@@ -124,37 +124,31 @@ export default function HomePage() {
       </section>
 
       {/* 5 Strategies */}
-      <section className="section-major">
+      <section className="section-major bg-gray-50">
         <div className="container-saas">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">5가지 전략으로 생성</h2>
             <p className="text-lg text-gray-600">상황에 맞는 프롬프트를 고를 수 있습니다</p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="overflow-hidden rounded-2xl border-4 border-gray-400">
-              <table className="w-full border-collapse bg-white">
-                <tbody>
-                  {[
-                    { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
-                    { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
-                    { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
-                    { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
-                    { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
-                  ].map((strategy, idx, arr) => (
-                    <tr key={strategy.id} style={{ borderBottom: idx !== arr.length - 1 ? '3px solid #d1d5db' : 'none' }}>
-                      <td className="px-8 py-6 bg-gray-100 align-top" style={{ width: '100px', borderRight: '3px solid #d1d5db' }}>
-                        <div className="text-3xl font-bold text-gray-900 text-center">{strategy.id}</div>
-                      </td>
-                      <td className="px-8 py-6 align-top">
-                        <div className="text-lg font-bold text-gray-900 mb-2">{strategy.label}</div>
-                        <div className="text-base text-gray-600">{strategy.desc}</div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+          <div className="max-w-5xl mx-auto space-y-3">
+            {[
+              { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트', color: 'from-blue-500 to-blue-600' },
+              { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트', color: 'from-purple-500 to-purple-600' },
+              { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트', color: 'from-pink-500 to-pink-600' },
+              { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트', color: 'from-orange-500 to-orange-600' },
+              { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트', color: 'from-green-500 to-green-600' },
+            ].map((strategy) => (
+              <div key={strategy.id} className="bg-white rounded-xl border-2 border-gray-200 p-6 flex items-center gap-6 hover:border-gray-300 hover:shadow-md transition-all">
+                <div className={`w-16 h-16 bg-gradient-to-br ${strategy.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                  <span className="text-white text-2xl font-bold">{strategy.id}</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-1">{strategy.label}</h3>
+                  <p className="text-base text-gray-600">{strategy.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
