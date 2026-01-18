@@ -397,17 +397,17 @@ export default function HomePage() {
               },
               {
                 q: '무료 체험은 어떻게 제한되나요?',
-                a: '하루 3회까지 프롬프트를 생성할 수 있습니다. 자정에 초기화됩니다. 더 많이 사용하려면 추후 출시될 유료 플랜을 이용할 수 있습니다.',
+                a: '하루 3회까지 프롬프트를 생성할 수 있습니다. 자정에 초기화됩니다.',
               },
             ].map((item, idx) => (
               <div key={idx} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
                 <button
                   onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                  className="w-full px-6 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                  className="w-full px-4 py-4 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                 >
-                  <span className="font-semibold text-gray-900">{item.q}</span>
+                  <span className="font-semibold text-gray-900 pr-4">{item.q}</span>
                   <svg
-                    className={`w-5 h-5 text-gray-500 transition-transform ${openFaq === idx ? 'rotate-180' : ''}`}
+                    className={`w-4 h-4 text-gray-500 transition-transform flex-shrink-0 ${openFaq === idx ? 'rotate-180' : ''}`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -416,7 +416,7 @@ export default function HomePage() {
                   </svg>
                 </button>
                 {openFaq === idx && (
-                  <div className="px-6 pb-4 text-sm text-gray-600 leading-relaxed">
+                  <div className="px-4 pb-4 pt-1 text-sm text-gray-600 leading-relaxed">
                     {item.a}
                   </div>
                 )}
