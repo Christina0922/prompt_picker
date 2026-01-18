@@ -71,11 +71,9 @@ export default function FinalPanel({
           </div>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 flex items-center justify-center transition-colors"
+            className="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 flex items-center justify-center transition-colors text-2xl font-bold text-gray-500"
           >
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            ×
           </button>
         </div>
 
@@ -90,21 +88,7 @@ export default function FinalPanel({
 
           {/* Copy Button */}
           <Button onClick={handleCopy} fullWidth size="lg" className="mb-8">
-            {copied ? (
-              <>
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                복사 완료!
-              </>
-            ) : (
-              <>
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                </svg>
-                프롬프트 복사하기
-              </>
-            )}
+            {copied ? '✓ 복사 완료!' : '프롬프트 복사하기'}
           </Button>
 
           {/* Tuning Section */}
@@ -180,11 +164,7 @@ export default function FinalPanel({
             {isTuning && (
               <div className="mt-6 text-center">
                 <div className="inline-flex items-center gap-3 px-5 py-3 bg-indigo-50 rounded-xl">
-                  <svg className="animate-spin h-5 w-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                  </svg>
-                  <span className="text-sm font-medium text-indigo-900">튜닝 중...</span>
+                  <span className="text-sm font-medium text-indigo-900">⏳ 튜닝 중...</span>
                 </div>
               </div>
             )}
