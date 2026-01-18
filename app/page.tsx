@@ -87,7 +87,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3 Steps - TABLE (개선) */}
+      {/* 3 Steps - TABLE (고급스럽게) */}
       <section className="py-16 bg-gray-50">
         <div className="container-saas">
           <div className="text-center mb-12">
@@ -95,15 +95,15 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">복잡한 과정 없이 빠르게 프롬프트를 생성합니다</p>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white rounded-xl border-2 border-gray-300 overflow-hidden shadow-sm">
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white rounded-2xl border-2 border-gray-300 overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full border-collapse">
                   <thead>
-                    <tr className="bg-gray-100 border-b-2 border-gray-300">
-                      <th className="px-6 py-4 text-left font-bold text-gray-900 text-base w-28">단계</th>
-                      <th className="px-6 py-4 text-left font-bold text-gray-900 text-base">제목</th>
-                      <th className="px-6 py-4 text-left font-bold text-gray-900 text-base">설명</th>
+                    <tr className="bg-gradient-to-r from-gray-800 to-gray-700">
+                      <th className="px-8 py-5 text-left font-bold text-white text-lg border-r border-gray-600">단계</th>
+                      <th className="px-8 py-5 text-left font-bold text-white text-lg border-r border-gray-600">제목</th>
+                      <th className="px-8 py-5 text-left font-bold text-white text-lg">설명</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -112,14 +112,14 @@ export default function HomePage() {
                       { step: '2', title: '옵션 선택', desc: '목적·AI·길이 클릭' },
                       { step: '3', title: '5개 중 선택', desc: '마음에 드는 걸 복사' },
                     ].map((item, idx, arr) => (
-                      <tr key={item.step} className={`${idx !== arr.length - 1 ? 'border-b border-gray-300' : ''} hover:bg-gray-50 transition-colors`}>
-                        <td className="px-6 py-5">
-                          <span className="inline-flex items-center justify-center min-w-[48px] h-12 px-4 bg-indigo-50 border-2 border-indigo-200 rounded-lg font-bold text-indigo-700 text-xl">
+                      <tr key={item.step} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-200' : ''} hover:bg-indigo-50 transition-colors`}>
+                        <td className="px-8 py-6 border-r-2 border-gray-200">
+                          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white font-black text-2xl rounded-xl shadow-lg">
                             {item.step}
-                          </span>
+                          </div>
                         </td>
-                        <td className="px-6 py-5 font-bold text-gray-900 text-lg">{item.title}</td>
-                        <td className="px-6 py-5 text-gray-600 text-base leading-relaxed">{item.desc}</td>
+                        <td className="px-8 py-6 font-bold text-gray-900 text-xl border-r-2 border-gray-200">{item.title}</td>
+                        <td className="px-8 py-6 text-gray-600 text-lg leading-relaxed">{item.desc}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -130,7 +130,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 5 Strategies - TABLE (개선) */}
+      {/* 5 Strategies - TABLE (고급스럽게) */}
       <section className="py-16 bg-white">
         <div className="container-saas">
           <div className="text-center mb-12">
@@ -139,14 +139,14 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="bg-white rounded-xl border-2 border-gray-300 overflow-hidden shadow-sm">
+            <div className="bg-white rounded-2xl border-2 border-gray-300 overflow-hidden shadow-xl">
               <div className="overflow-x-auto">
-                <table className="w-full">
+                <table className="w-full border-collapse">
                   <thead>
-                    <tr className="bg-gray-100 border-b-2 border-gray-300">
-                      <th className="px-6 py-4 text-center font-bold text-gray-900 text-base w-24">코드</th>
-                      <th className="px-6 py-4 text-left font-bold text-gray-900 text-base w-36">전략명</th>
-                      <th className="px-6 py-4 text-left font-bold text-gray-900 text-base">한줄 설명</th>
+                    <tr className="bg-gradient-to-r from-gray-800 to-gray-700">
+                      <th className="px-8 py-5 text-center font-bold text-white text-lg border-r border-gray-600">코드</th>
+                      <th className="px-8 py-5 text-left font-bold text-white text-lg border-r border-gray-600">전략명</th>
+                      <th className="px-8 py-5 text-left font-bold text-white text-lg">한줄 설명</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -157,14 +157,14 @@ export default function HomePage() {
                       { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
                       { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
                     ].map((strategy, idx, arr) => (
-                      <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b border-gray-300' : ''} hover:bg-gray-50 transition-colors`}>
-                        <td className="px-6 py-5 text-center">
-                          <span className="inline-flex items-center justify-center w-12 h-12 bg-indigo-600 border-2 border-indigo-700 text-white font-bold text-xl rounded-lg">
+                      <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-200' : ''} hover:bg-indigo-50 transition-colors`}>
+                        <td className="px-8 py-6 text-center border-r-2 border-gray-200">
+                          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-indigo-700 text-white font-black text-2xl rounded-xl shadow-lg">
                             {strategy.id}
-                          </span>
+                          </div>
                         </td>
-                        <td className="px-6 py-5 font-bold text-gray-900 text-lg">{strategy.label}</td>
-                        <td className="px-6 py-5 text-gray-600 text-base leading-relaxed">{strategy.desc}</td>
+                        <td className="px-8 py-6 font-bold text-gray-900 text-xl border-r-2 border-gray-200">{strategy.label}</td>
+                        <td className="px-8 py-6 text-gray-600 text-lg leading-relaxed">{strategy.desc}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -175,24 +175,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ - 더 선명하게 */}
+      {/* FAQ - 고급스럽게 */}
       <section className="py-16 bg-gray-50">
         <div className="container-saas">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
 
-            <div className="bg-white rounded-xl border-2 border-gray-300 overflow-hidden shadow-sm">
+            <div className="bg-white rounded-2xl border-2 border-gray-300 overflow-hidden shadow-xl">
               {[
                 { q: '이 프롬프트는 그대로 써도 되나요?', a: '네. ChatGPT, Claude, Gemini에 바로 붙여넣기하면 됩니다.' },
                 { q: '왜 5개나 만들어 주나요?', a: '상황에 따라 적합한 전략이 다르기 때문입니다. 비교해서 선택하세요.' },
                 { q: '무료 체험은 어떻게 제한되나요?', a: '하루 3회까지 생성할 수 있습니다. 자정에 초기화됩니다.' },
               ].map((item, idx, arr) => (
-                <div key={idx} className={idx !== arr.length - 1 ? 'border-b border-gray-300' : ''}>
+                <div key={idx} className={idx !== arr.length - 1 ? 'border-b-2 border-gray-200' : ''}>
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-indigo-50 transition-colors"
                   >
-                    <span className="font-bold text-gray-900 text-lg pr-6">{item.q}</span>
+                    <span className="font-bold text-gray-900 text-xl pr-6">{item.q}</span>
                     <svg 
                       className="w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-200" 
                       style={{ transform: openFaq === idx ? 'rotate(180deg)' : 'rotate(0deg)' }}
@@ -204,7 +204,7 @@ export default function HomePage() {
                     </svg>
                   </button>
                   {openFaq === idx && (
-                    <div className="px-8 pb-6 pt-2 text-gray-600 text-base leading-relaxed">
+                    <div className="px-8 pb-6 pt-2 text-gray-600 text-lg leading-relaxed bg-gray-50">
                       {item.a}
                     </div>
                   )}
