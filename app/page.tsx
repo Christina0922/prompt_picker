@@ -9,32 +9,32 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header - 완전 재구성 */}
-      <header className="border-b border-gray-100 bg-white/95 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* 로고 */}
-            <Link href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 no-underline">
               <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">PP</span>
               </div>
-              <span className="text-lg font-bold text-gray-900">Prompt Picker</span>
+              <span className="text-lg font-bold text-gray-900 no-underline">Prompt Picker</span>
             </Link>
 
             {/* 네비게이션 */}
             <nav className="hidden md:flex items-center gap-8">
-              <a href="#examples" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+              <a href="#examples" className="text-sm font-medium text-gray-700 hover:text-gray-900 no-underline">
                 예시
               </a>
-              <a href="#strategies" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+              <a href="#strategies" className="text-sm font-medium text-gray-700 hover:text-gray-900 no-underline">
                 전략
               </a>
-              <a href="#faq" className="text-sm font-medium text-gray-600 hover:text-gray-900">
+              <a href="#faq" className="text-sm font-medium text-gray-700 hover:text-gray-900 no-underline">
                 FAQ
               </a>
             </nav>
 
             {/* CTA */}
-            <Link href="/tool" className="btn-primary py-2 px-5 text-sm">
+            <Link href="/tool" className="px-5 py-2 bg-indigo-600 text-white text-sm font-semibold rounded-lg hover:bg-indigo-700 transition-colors no-underline">
               무료로 시작하기
             </Link>
           </div>
@@ -55,7 +55,7 @@ export default function HomePage() {
                 10초 생성
               </span>
               <span className="px-3 py-1 bg-green-50 text-green-700 rounded-full text-xs font-semibold border border-green-100">
-                무료 체험(하루 3회)
+                무료 체험 (하루 3회)
               </span>
             </div>
 
@@ -74,10 +74,10 @@ export default function HomePage() {
 
             {/* CTA */}
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/tool" className="btn-primary px-6 py-3 text-center">
+              <Link href="/tool" className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors text-center no-underline">
                 무료로 바로 만들어보기
               </Link>
-              <a href="#examples" className="btn-secondary px-6 py-3 text-center">
+              <a href="#examples" className="px-6 py-3 bg-gray-100 text-gray-700 font-semibold rounded-lg hover:bg-gray-200 transition-colors text-center no-underline">
                 결과 예시 보기
               </a>
             </div>
@@ -259,34 +259,34 @@ export default function HomePage() {
 
             {/* 출력 */}
             <div className="space-y-3">
-              <div className="bg-white rounded-xl p-5 border-2 border-indigo-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-indigo-700">A · 안정형</span>
-                  <button className="px-2 py-1 bg-indigo-50 text-indigo-700 rounded text-xs">복사</button>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-indigo-700 bg-indigo-50 px-2 py-1 rounded">A · 안정형</span>
+                  <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium hover:bg-gray-200 transition-colors">복사</button>
                 </div>
-                <div className="text-sm text-gray-700 leading-relaxed">
+                <div className="text-sm text-gray-800 leading-relaxed">
                   재테크 입문자를 위한 블로그 글을 작성해줘. 친절하고 쉽게 설명하고, 실용적인 팁을 포함해줘.
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-5 border-2 border-pink-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-pink-700">C · 구조형</span>
-                  <button className="px-2 py-1 bg-pink-50 text-pink-700 rounded text-xs">복사</button>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-pink-700 bg-pink-50 px-2 py-1 rounded">C · 구조형</span>
+                  <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium hover:bg-gray-200 transition-colors">복사</button>
                 </div>
-                <div className="text-sm text-gray-700 leading-relaxed">
+                <div className="text-sm text-gray-800 leading-relaxed">
                   <strong>목적:</strong> 재테크 입문자용 블로그<br />
                   <strong>톤:</strong> 친절하고 쉬운 설명<br />
                   <strong>필수:</strong> 실용적인 팁 3가지 이상
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl p-5 border-2 border-green-200">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-xs font-bold text-green-700">E · 요약형</span>
-                  <button className="px-2 py-1 bg-green-50 text-green-700 rounded text-xs">복사</button>
+              <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-xs font-bold text-green-700 bg-green-50 px-2 py-1 rounded">E · 요약형</span>
+                  <button className="px-3 py-1 bg-gray-100 text-gray-700 rounded text-xs font-medium hover:bg-gray-200 transition-colors">복사</button>
                 </div>
-                <div className="text-sm text-gray-700 leading-relaxed">
+                <div className="text-sm text-gray-800 leading-relaxed">
                   재테크 초보자가 이해하기 쉽게 블로그 글 작성. 쉬운 설명, 바로 쓸 수 있는 팁 포함.
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-8">
-            <Link href="/tool" className="btn-primary px-6 py-3">
+            <Link href="/tool" className="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors inline-block no-underline">
               지금 바로 만들어보기
             </Link>
           </div>
@@ -475,7 +475,7 @@ export default function HomePage() {
           <p className="text-lg text-indigo-100 mb-8">
             조각 입력만으로 5가지 프롬프트가 만들어집니다
           </p>
-          <Link href="/tool" className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors shadow-xl">
+            <Link href="/tool" className="inline-block px-8 py-4 bg-white text-indigo-600 rounded-lg font-semibold hover:bg-gray-50 transition-colors shadow-xl no-underline">
             무료로 시작하기
           </Link>
         </div>
