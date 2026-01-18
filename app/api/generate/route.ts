@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { buildPromptForAI, variantStrategies, type AITarget, type LengthPreset } from '@/lib/promptBuilders';
+import { buildPromptForAI, variantStrategies, type AITarget, type LengthPreset, type ToneType, type OutputFormat } from '@/lib/promptBuilders';
 
 // API 키 체크
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -10,9 +10,9 @@ interface GenerateRequest {
   goalType: string;
   aiTarget: AITarget;
   language: 'ko' | 'en';
-  tone: string;
+  tone: ToneType;
   lengthPreset: LengthPreset;
-  outputFormat: string;
+  outputFormat: OutputFormat;
 }
 
 interface PromptOption {
