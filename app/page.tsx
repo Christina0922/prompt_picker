@@ -5,6 +5,23 @@ import { useState } from 'react';
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isDemoHighlighted, setIsDemoHighlighted] = useState(false);
+  const [showMoreStrategies, setShowMoreStrategies] = useState(false);
+
+  const handleDemoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    const demoElement = document.getElementById('demo');
+    if (demoElement) {
+      // Smooth scroll to demo
+      demoElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // Highlight effect
+      setIsDemoHighlighted(true);
+      setTimeout(() => {
+        setIsDemoHighlighted(false);
+      }, 1200);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -47,7 +64,11 @@ export default function HomePage() {
               <Link href="/tool" className="btn-primary text-lg">
                 지금 바로 만들기
               </Link>
-              <a href="#demo" className="btn-secondary text-lg">
+              <a 
+                href="#demo" 
+                onClick={handleDemoClick}
+                className="btn-secondary text-lg"
+              >
                 데모 보기
               </a>
             </div>
@@ -55,32 +76,89 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Demo Card */}
+      {/* Demo Card - 개선 */}
       <section className="py-12" id="demo">
         <div className="container-saas">
           <div className="max-w-3xl mx-auto">
-            <div className="card-saas border-2 border-gray-200">
+            <div className={`card-saas border-2 transition-all duration-300 ${
+              isDemoHighlighted 
+                ? 'border-indigo-500 bg-indigo-50/30 shadow-lg' 
+                : 'border-gray-200 bg-white'
+            }`}>
               <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-200">
                 <div className="w-3 h-3 bg-red-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
                 <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                <span className="ml-2 text-sm font-semibold text-gray-500">Preview</span>
+                <span className="ml-2 text-sm font-semibold text-gray-500">데모 미리보기</span>
               </div>
 
               <div className="space-y-4">
+                {/* 입력 예시 */}
                 <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                  <div className="text-xs font-semibold text-gray-500 mb-2">입력</div>
-                  <div className="text-sm text-gray-900 font-mono">운동화 홍보, 2030 여성, 편안함</div>
+                  <div className="text-xs font-semibold text-gray-500 mb-2">입력 예시</div>
+                  <div className="text-sm text-gray-900 font-mono">운동화 광고, 2030 여성 타겟, 편안함 강조, SNS용</div>
                 </div>
 
-                <div className="text-center text-gray-400 text-sm font-semibold">↓ 10초</div>
-
-                <div className="bg-indigo-50 rounded-lg p-4 border-l-4 border-indigo-600">
-                  <div className="text-xs font-bold text-indigo-700 mb-2">A · 안정형</div>
-                  <div className="text-sm text-gray-800">2030 여성을 위한 운동화를 홍보해주세요. 편안함을 강조해주세요.</div>
+                {/* 생성 시간 */}
+                <div className="text-center">
+                  <span className="inline-block px-4 py-2 bg-indigo-50 text-indigo-700 font-semibold text-sm rounded-lg border border-indigo-200">
+                    ⚡ 10초 만에 생성
+                  </span>
                 </div>
 
-                <div className="text-center text-sm text-gray-500">+ 4개 더 (B, C, D, E)</div>
+                {/* 전략 A 결과 */}
+                <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-5 border-l-4 border-indigo-600">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="inline-flex items-center justify-center w-8 h-8 bg-indigo-600 text-white font-bold text-sm rounded-lg">A</span>
+                    <span className="font-bold text-gray-900">안정형 전략</span>
+                  </div>
+                  <div className="text-base text-gray-800 leading-relaxed">
+                    "2030 여성을 위한 운동화를 SNS에 홍보해주세요. 편안함을 주요 장점으로 강조하고, 친근하고 공감 가는 톤으로 작성해주세요."
+                  </div>
+                </div>
+
+                {/* 나머지 전략들 (아코디언) */}
+                <div>
+                  <button
+                    onClick={() => setShowMoreStrategies(!showMoreStrategies)}
+                    className="w-full text-center py-3 px-4 bg-gray-50 hover:bg-gray-100 rounded-lg border border-gray-200 transition-colors"
+                  >
+                    <span className="text-sm font-semibold text-gray-700">
+                      {showMoreStrategies ? '접기' : '+ 나머지 4개 전략 보기 (B, C, D, E)'}
+                    </span>
+                  </button>
+                  
+                  {showMoreStrategies && (
+                    <div className="mt-4 space-y-3 animate-fadeIn">
+                      {[
+                        { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
+                        { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
+                        { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
+                        { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
+                      ].map((strategy) => (
+                        <div key={strategy.id} className="bg-white rounded-lg p-4 border border-gray-200">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="inline-flex items-center justify-center w-7 h-7 bg-gray-600 text-white font-bold text-sm rounded-lg">
+                              {strategy.id}
+                            </span>
+                            <span className="font-semibold text-gray-900">{strategy.label}</span>
+                          </div>
+                          <div className="text-sm text-gray-600 ml-9">{strategy.desc}</div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* CTA */}
+                <div className="text-center pt-2">
+                  <Link 
+                    href="/tool" 
+                    className="inline-block px-6 py-3 bg-indigo-600 text-white font-bold text-sm rounded-lg hover:bg-indigo-700 transition-colors no-underline"
+                  >
+                    직접 만들어보기 →
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -235,6 +313,7 @@ export default function HomePage() {
                 </Link>
                 <a 
                   href="#demo" 
+                  onClick={handleDemoClick}
                   className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 text-lg font-semibold rounded-xl border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all no-underline"
                 >
                   데모 보기
