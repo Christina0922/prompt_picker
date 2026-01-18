@@ -29,8 +29,8 @@ export default function ToolLayout({ children, remaining, onUpgradeClick }: Tool
             </Link>
 
             {/* Right: Status & Action */}
-            <div className="flex items-center gap-6">
-              <div className="flex items-center gap-3 px-5 py-2 bg-gray-100 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-10">
+              <div className="flex items-center gap-3 px-6 py-2.5 bg-gray-100 rounded-lg border border-gray-200">
                 <Badge variant="success">무료</Badge>
                 <div className="text-sm text-gray-700">
                   오늘 남은 <span className="font-bold text-gray-900">{remaining}회</span>
