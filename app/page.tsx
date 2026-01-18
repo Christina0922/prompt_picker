@@ -155,24 +155,26 @@ export default function HomePage() {
       <section className="section-major bg-gray-50">
         <div className="container-saas">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-16 text-center">자주 묻는 질문</h2>
 
-            <div className="space-y-3">
+            <div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-200">
               {[
                 { q: '이 프롬프트는 그대로 써도 되나요?', a: '네. ChatGPT, Claude, Gemini에 바로 붙여넣기하면 됩니다.' },
                 { q: '왜 5개나 만들어 주나요?', a: '상황에 따라 적합한 전략이 다르기 때문입니다. 비교해서 선택하세요.' },
                 { q: '무료 체험은 어떻게 제한되나요?', a: '하루 3회까지 생성할 수 있습니다. 자정에 초기화됩니다.' },
               ].map((item, idx) => (
-                <div key={idx} className="card-saas border-2 border-gray-200">
+                <div key={idx}>
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full flex items-center justify-between text-left"
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                   >
-                    <span className="font-semibold text-gray-900 text-lg pr-4">{item.q}</span>
-                    <span className="text-2xl text-gray-400 flex-shrink-0">{openFaq === idx ? '−' : '+'}</span>
+                    <span className="font-semibold text-gray-900 text-lg pr-6">{item.q}</span>
+                    <span className="text-2xl text-gray-400 flex-shrink-0 transition-transform duration-200" style={{ transform: openFaq === idx ? 'rotate(45deg)' : 'rotate(0deg)' }}>
+                      +
+                    </span>
                   </button>
                   {openFaq === idx && (
-                    <div className="mt-4 pt-4 border-t border-gray-200 text-gray-600 leading-relaxed">
+                    <div className="px-8 pb-6 text-gray-600 leading-relaxed animate-fadeIn">
                       {item.a}
                     </div>
                   )}
