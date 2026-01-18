@@ -128,28 +128,35 @@ export default function ToolPage() {
   return (
     <ToolLayout remaining={remaining} onUpgradeClick={() => setShowProModal(true)}>
       <div className="container-saas">
-        <div className="space-y-6">
-          {/* Page Header - 카드로 */}
-          <div className="card-saas text-center py-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-3">
-              프롬프트 후보 생성
-            </h1>
-            <p className="text-lg text-gray-600">
-              조각을 입력하고 옵션을 선택하면, 5가지 전략의 프롬프트가 생성됩니다
-            </p>
-          </div>
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+            프롬프트 생성기
+          </h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            조각만 입력하면 5가지 전략의 완성된 프롬프트를 10초 안에 생성합니다
+          </p>
+        </div>
 
-          {/* Main Form Area - 2 Column Grid */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <SnippetCard value={snippets} onChange={setSnippets} />
-            <SelectorsCard
-              goalType={goalType}
-              onGoalTypeChange={setGoalType}
-              aiTarget={aiTarget}
-              onAiTargetChange={setAiTarget}
-              length={length}
-              onLengthChange={setLength}
-            />
+        <div className="max-w-5xl mx-auto space-y-6">
+          {/* Main Input Section */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left: Snippet Input (2/3 width) */}
+            <div className="lg:col-span-2">
+              <SnippetCard value={snippets} onChange={setSnippets} />
+            </div>
+
+            {/* Right: Selectors (1/3 width) */}
+            <div className="lg:col-span-1">
+              <SelectorsCard
+                goalType={goalType}
+                onGoalTypeChange={setGoalType}
+                aiTarget={aiTarget}
+                onAiTargetChange={setAiTarget}
+                length={length}
+                onLengthChange={setLength}
+              />
+            </div>
           </div>
 
           {/* Advanced Options */}
@@ -163,19 +170,19 @@ export default function ToolPage() {
           />
 
           {/* Generate CTA */}
-          <div className="flex flex-col items-end gap-2 pt-4">
+          <div className="flex flex-col items-center gap-3 py-6">
             <Button
               onClick={handleGenerate}
               disabled={isGenerating || !snippets.trim()}
               size="lg"
-              className="min-w-[240px]"
+              className="min-w-[300px] h-14 text-lg font-bold shadow-lg"
             >
-              {isGenerating ? '생성 중...' : '후보 5개 생성'}
+              {isGenerating ? '프롬프트 생성 중...' : '후보 5개 생성하기'}
             </Button>
             
             {!isGenerating && (
-              <p className="text-xs text-gray-500">
-                무료 체험은 하루 3회까지 가능합니다
+              <p className="text-sm text-gray-500">
+                무료 체험 · 하루 3회까지 생성 가능
               </p>
             )}
           </div>
@@ -185,12 +192,12 @@ export default function ToolPage() {
             <div className="card-saas bg-red-50 border-2 border-red-200">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-red-900 mb-1">오류</h3>
+                  <h3 className="text-base font-bold text-red-900 mb-1">생성 오류</h3>
                   <p className="text-sm text-red-700">{error}</p>
                 </div>
                 <button
                   onClick={() => setError(null)}
-                  className="text-red-400 hover:text-red-600 text-lg font-bold ml-4"
+                  className="text-red-400 hover:text-red-600 text-2xl font-bold ml-4 flex-shrink-0"
                 >
                   ×
                 </button>
@@ -199,9 +206,15 @@ export default function ToolPage() {
           )}
 
           {/* Results Section */}
-          <div id="results">
-            <ResultsGrid options={options} onSelect={handleSelectPrompt} />
-          </div>
+          {options.length > 0 && (
+            <div id="results" className="pt-8">
+              <div className="text-center mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-2">생성 완료</h2>
+                <p className="text-lg text-gray-600">5가지 전략의 프롬프트 중 하나를 선택하세요</p>
+              </div>
+              <ResultsGrid options={options} onSelect={handleSelectPrompt} />
+            </div>
+          )}
         </div>
       </div>
 
