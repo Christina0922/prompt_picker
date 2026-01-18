@@ -45,17 +45,9 @@ export default function AdvancedOptionsCard({
         className="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
       >
         <div className="text-left">
-          <div className="text-sm font-semibold text-gray-900">고급 옵션</div>
+          <div className="text-sm font-semibold text-gray-900">고급 옵션 {isExpanded ? '▲' : '▼'}</div>
           <div className="text-xs text-gray-500">언어, 톤, 출력 형식 설정</div>
         </div>
-        <svg
-          className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
       </button>
 
       {isExpanded && (

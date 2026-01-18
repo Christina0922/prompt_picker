@@ -28,11 +28,8 @@ export default function SnippetCard({ value, onChange }: SnippetCardProps) {
           className="w-full px-4 py-3.5 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all duration-200 resize-none text-sm placeholder:text-gray-400"
           rows={8}
         />
-        <div className="flex items-center gap-2 text-xs text-gray-500">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span>쉼표로 구분하거나 여러 줄로 작성 가능합니다</span>
+        <div className="text-xs text-gray-500">
+          <span>💡 쉼표로 구분하거나 여러 줄로 작성 가능합니다</span>
         </div>
       </div>
     </Card>
