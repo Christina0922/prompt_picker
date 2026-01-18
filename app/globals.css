@@ -14,6 +14,18 @@ body {
   line-height: 1.6;
 }
 
+/* Next.js 개발 인디케이터 완전 숨김 */
+#__next-build-watcher,
+[data-nextjs-build-indicator],
+[data-nextjs-previewmode],
+.__next-dev-overlay,
+nextjs-portal {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
 .btn-primary {
   padding: 0.875rem 2rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
