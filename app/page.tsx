@@ -131,22 +131,28 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">상황에 맞는 프롬프트를 고를 수 있습니다</p>
           </div>
 
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 divide-y divide-gray-200">
-            {[
-              { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
-              { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
-              { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
-              { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
-              { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
-            ].map((strategy) => (
-              <div key={strategy.id} className="px-8 py-6 flex items-center gap-6 hover:bg-gray-50 transition-colors">
-                <div className="text-3xl font-bold text-gray-900 w-12 flex-shrink-0">{strategy.id}</div>
-                <div className="flex-1">
-                  <div className="text-lg font-semibold text-gray-900 mb-1">{strategy.label}</div>
-                  <div className="text-sm text-gray-600">{strategy.desc}</div>
-                </div>
-              </div>
-            ))}
+          <div className="max-w-4xl mx-auto">
+            <table className="w-full bg-white rounded-2xl border-2 border-gray-300 overflow-hidden">
+              <tbody>
+                {[
+                  { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
+                  { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
+                  { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
+                  { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
+                  { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
+                ].map((strategy, idx, arr) => (
+                  <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-300' : ''} hover:bg-gray-50 transition-colors`}>
+                    <td className="px-8 py-6 w-16">
+                      <div className="text-3xl font-bold text-gray-900">{strategy.id}</div>
+                    </td>
+                    <td className="px-6 py-6">
+                      <div className="text-lg font-semibold text-gray-900 mb-1">{strategy.label}</div>
+                      <div className="text-sm text-gray-600">{strategy.desc}</div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
