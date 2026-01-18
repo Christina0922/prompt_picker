@@ -68,15 +68,11 @@ export default function HomePage() {
 
               <div className="flex gap-6 text-sm">
                 <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <span className="text-green-600 font-bold">✓</span>
                   <span className="text-gray-700">신용카드 불필요</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <svg className="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                  </svg>
+                  <span className="text-green-600 font-bold">✓</span>
                   <span className="text-gray-700">10초 이내 생성</span>
                 </div>
               </div>
@@ -125,14 +121,7 @@ export default function HomePage() {
             <div className="grid lg:grid-cols-2 gap-8 mb-12">
               {/* 입력 예시 */}
               <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-8 h-8 bg-indigo-100 rounded-lg flex items-center justify-center">
-                    <svg className="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900">사용자 입력</h3>
-                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">사용자 입력</h3>
                 <div className="bg-gray-50 rounded-lg p-5 mb-4">
                   <p className="text-gray-800 leading-relaxed">
                     "유튜브 썸네일 문구 만들기"<br />
@@ -337,11 +326,6 @@ export default function HomePage() {
                   1
                 </div>
                 <div className="mt-4 mb-6">
-                  <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
-                  </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     조각 입력
                   </h3>
@@ -360,11 +344,6 @@ export default function HomePage() {
                   2
                 </div>
                 <div className="mt-4 mb-6">
-                  <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                    </svg>
-                  </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     옵션 선택
                   </h3>
@@ -385,11 +364,6 @@ export default function HomePage() {
                   3
                 </div>
                 <div className="mt-4 mb-6">
-                  <div className="w-16 h-16 bg-pink-100 rounded-2xl flex items-center justify-center mb-4">
-                    <svg className="w-8 h-8 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                  </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     A~E 선택 & 복사
                   </h3>
@@ -422,11 +396,6 @@ export default function HomePage() {
             <div className="grid md:grid-cols-3 gap-8">
               {/* 사례 1 */}
               <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
-                  </svg>
-                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   콘텐츠 크리에이터
                 </h3>
@@ -440,11 +409,6 @@ export default function HomePage() {
 
               {/* 사례 2 */}
               <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   직장인 (업무 자동화)
                 </h3>
@@ -458,11 +422,6 @@ export default function HomePage() {
 
               {/* 사례 3 */}
               <div className="bg-white rounded-2xl p-8 border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
-                <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center mb-6">
-                  <svg className="w-6 h-6 text-pink-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-3">
                   강사 / 교육자
                 </h3>
