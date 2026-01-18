@@ -127,100 +127,144 @@ export default function ToolPage() {
 
   return (
     <ToolLayout remaining={remaining} onUpgradeClick={() => setShowProModal(true)}>
-      <div className="container-saas">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
-            프롬프트 생성기
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            조각만 입력하면 AI가 5가지 전략의 완성된 프롬프트를 생성합니다
-          </p>
-        </div>
+      <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+        <div className="container-saas py-16">
+          {/* Hero Section */}
+          <div className="text-center mb-20">
+            <h1 className="text-6xl md:text-7xl font-black text-gray-900 mb-6 tracking-tight">
+              프롬프트 생성
+            </h1>
+            <p className="text-2xl text-gray-600 max-w-3xl mx-auto font-light">
+              입력 → 5가지 전략 → 10초 완성
+            </p>
+          </div>
 
-        <div className="max-w-6xl mx-auto">
-          {/* Main Input Area */}
-          <div className="grid lg:grid-cols-3 gap-8 mb-8">
-            {/* Left: Snippet Input (2/3) */}
-            <div className="lg:col-span-2">
-              <SnippetCard value={snippets} onChange={setSnippets} />
+          <div className="max-w-6xl mx-auto">
+            {/* Main Input Card */}
+            <div className="bg-white rounded-3xl border-2 border-gray-200 shadow-xl p-12 mb-8">
+              <div className="grid lg:grid-cols-3 gap-12">
+                {/* Left: Input */}
+                <div className="lg:col-span-2">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">입력</h2>
+                  <textarea
+                    value={snippets}
+                    onChange={(e) => setSnippets(e.target.value)}
+                    placeholder="예: 운동화 광고, 2030 여성, 편안함 강조"
+                    className="w-full px-6 py-5 bg-gray-50 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all duration-200 resize-none text-lg placeholder:text-gray-400 leading-relaxed font-normal"
+                    rows={10}
+                    style={{ minHeight: '280px' }}
+                  />
+                </div>
+
+                {/* Right: Settings */}
+                <div className="lg:col-span-1 space-y-8">
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">목적</h3>
+                    <select
+                      value={goalType}
+                      onChange={(e) => setGoalType(e.target.value)}
+                      className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-base font-medium"
+                    >
+                      <option value="content">콘텐츠</option>
+                      <option value="analysis">분석</option>
+                      <option value="code">코드</option>
+                      <option value="translation">번역</option>
+                      <option value="creative">창작</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">AI</h3>
+                    <select
+                      value={aiTarget}
+                      onChange={(e) => setAiTarget(e.target.value)}
+                      className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-base font-medium"
+                    >
+                      <option value="auto">자동</option>
+                      <option value="chatgpt">ChatGPT</option>
+                      <option value="claude">Claude</option>
+                      <option value="gemini">Gemini</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-4">길이</h3>
+                    <select
+                      value={length}
+                      onChange={(e) => setLength(e.target.value)}
+                      className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 outline-none text-base font-medium"
+                    >
+                      <option value="short">짧게</option>
+                      <option value="medium">보통</option>
+                      <option value="detailed">상세</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Right: Quick Settings (1/3) */}
-            <div className="lg:col-span-1">
-              <SelectorsCard
-                goalType={goalType}
-                onGoalTypeChange={setGoalType}
-                aiTarget={aiTarget}
-                onAiTargetChange={setAiTarget}
-                length={length}
-                onLengthChange={setLength}
+            {/* Advanced Options */}
+            <div className="mb-10">
+              <AdvancedOptionsCard
+                language={language}
+                onLanguageChange={setLanguage}
+                tone={tone}
+                onToneChange={setTone}
+                outputFormat={outputFormat}
+                onOutputFormatChange={setOutputFormat}
               />
             </div>
-          </div>
 
-          {/* Advanced Options */}
-          <div className="mb-10">
-            <AdvancedOptionsCard
-              language={language}
-              onLanguageChange={setLanguage}
-              tone={tone}
-              onToneChange={setTone}
-              outputFormat={outputFormat}
-              onOutputFormatChange={setOutputFormat}
-            />
-          </div>
+            {/* Generate Button */}
+            <div className="flex flex-col items-center gap-4 py-10">
+              <Button
+                onClick={handleGenerate}
+                disabled={isGenerating || !snippets.trim()}
+                size="lg"
+                className="min-w-[480px] h-20 text-2xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all rounded-2xl"
+              >
+                {isGenerating ? '생성 중...' : '생성하기'}
+              </Button>
+              
+              {!isGenerating && (
+                <p className="text-sm text-gray-500 font-medium">
+                  무료 · 하루 3회
+                </p>
+              )}
+            </div>
 
-          {/* Generate Button - Centered & Large */}
-          <div className="flex flex-col items-center gap-4 py-8">
-            <Button
-              onClick={handleGenerate}
-              disabled={isGenerating || !snippets.trim()}
-              size="lg"
-              className="min-w-[400px] h-16 text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all"
-            >
-              {isGenerating ? '프롬프트 생성 중...' : '후보 5개 생성하기'}
-            </Button>
-            
-            {!isGenerating && (
-              <p className="text-sm text-gray-500">
-                무료 체험 · 하루 3회까지 사용 가능
-              </p>
+            {/* Error */}
+            {error && (
+              <div className="card-saas bg-red-50 border-2 border-red-200 mb-8">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-base font-bold text-red-900 mb-1">오류</h3>
+                    <p className="text-sm text-red-700">{error}</p>
+                  </div>
+                  <button
+                    onClick={() => setError(null)}
+                    className="text-red-400 hover:text-red-600 text-2xl font-bold ml-4"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Results */}
+            {options.length > 0 && (
+              <div id="results" className="mt-20">
+                <div className="text-center mb-16">
+                  <h2 className="text-5xl font-black text-gray-900 mb-4">완료</h2>
+                  <p className="text-xl text-gray-600">5가지 전략</p>
+                </div>
+                <ResultsGrid options={options} onSelect={handleSelectPrompt} />
+              </div>
             )}
           </div>
-
-          {/* Error Message */}
-          {error && (
-            <div className="card-saas bg-red-50 border-2 border-red-200 mb-8">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-base font-bold text-red-900 mb-1">생성 오류</h3>
-                  <p className="text-sm text-red-700">{error}</p>
-                </div>
-                <button
-                  onClick={() => setError(null)}
-                  className="text-red-400 hover:text-red-600 text-2xl font-bold ml-4 flex-shrink-0"
-                >
-                  ×
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Results Section */}
-          {options.length > 0 && (
-            <div id="results" className="mt-16">
-              <div className="text-center mb-12">
-                <h2 className="text-4xl font-bold text-gray-900 mb-3">생성 완료</h2>
-                <p className="text-lg text-gray-600">5가지 전략의 프롬프트가 준비되었습니다</p>
-              </div>
-              <ResultsGrid options={options} onSelect={handleSelectPrompt} />
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Modals */}
       <FinalPanel
         isOpen={showFinalPanel}
         prompt={finalPrompt}
