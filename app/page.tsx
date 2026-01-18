@@ -87,7 +87,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 3 Steps */}
+      {/* 3 Steps - TABLE */}
       <section className="section-major bg-gray-50">
         <div className="container-saas">
           <div className="text-center mb-16">
@@ -95,86 +95,112 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">복잡한 과정 없이 빠르게 프롬프트를 생성합니다</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-indigo-600">1</span>
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 border-b-2 border-gray-200">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 w-24">단계</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">제목</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">설명</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {[
+                      { step: '1', title: '조각 입력', desc: '단어 몇 개만 적어도 OK' },
+                      { step: '2', title: '옵션 선택', desc: '목적·AI·길이 클릭' },
+                      { step: '3', title: '5개 중 선택', desc: '마음에 드는 걸 복사' },
+                    ].map((item) => (
+                      <tr key={item.step} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-5">
+                          <div className="w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center">
+                            <span className="text-xl font-bold text-indigo-600">{item.step}</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-5 font-bold text-gray-900 text-base">{item.title}</td>
+                        <td className="px-6 py-5 text-gray-600 text-base">{item.desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">조각 입력</h3>
-              <p className="text-gray-600">단어 몇 개만 적어도 OK</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-purple-600">2</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">옵션 선택</h3>
-              <p className="text-gray-600">목적·AI·길이 클릭</p>
-            </div>
-
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <span className="text-3xl font-bold text-green-600">3</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-2">5개 중 선택</h3>
-              <p className="text-gray-600">마음에 드는 걸 복사</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 5 Strategies */}
-      <section className="section-major bg-gray-50">
+      {/* 5 Strategies - TABLE */}
+      <section className="section-major">
         <div className="container-saas">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">5가지 전략으로 생성</h2>
             <p className="text-lg text-gray-600">상황에 맞는 프롬프트를 고를 수 있습니다</p>
           </div>
 
-          <div className="max-w-5xl mx-auto space-y-3">
-            {[
-              { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트', color: 'from-blue-500 to-blue-600' },
-              { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트', color: 'from-purple-500 to-purple-600' },
-              { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트', color: 'from-pink-500 to-pink-600' },
-              { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트', color: 'from-orange-500 to-orange-600' },
-              { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트', color: 'from-green-500 to-green-600' },
-            ].map((strategy) => (
-              <div key={strategy.id} className="bg-white rounded-xl border-2 border-gray-200 p-6 flex items-center gap-6 hover:border-gray-300 hover:shadow-md transition-all">
-                <div className={`w-16 h-16 bg-gradient-to-br ${strategy.color} rounded-xl flex items-center justify-center flex-shrink-0`}>
-                  <span className="text-white text-2xl font-bold">{strategy.id}</span>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{strategy.label}</h3>
-                  <p className="text-base text-gray-600">{strategy.desc}</p>
-                </div>
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-white rounded-xl border-2 border-gray-200 overflow-hidden shadow-sm">
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-50 border-b-2 border-gray-200">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 w-20">코드</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 w-32">전략명</th>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900">한줄 설명</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200">
+                    {[
+                      { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
+                      { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
+                      { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
+                      { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
+                      { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
+                    ].map((strategy) => (
+                      <tr key={strategy.id} className="hover:bg-gray-50 transition-colors">
+                        <td className="px-6 py-5">
+                          <span className="inline-flex items-center justify-center w-10 h-10 bg-indigo-600 text-white font-bold text-lg rounded-lg">
+                            {strategy.id}
+                          </span>
+                        </td>
+                        <td className="px-6 py-5 font-bold text-gray-900 text-base">{strategy.label}</td>
+                        <td className="px-6 py-5 text-gray-600 text-base">{strategy.desc}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
+      {/* FAQ - Improved */}
       <section className="section-major bg-gray-50">
         <div className="container-saas">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
 
-            <div className="space-y-3">
+            <div className="bg-white rounded-xl border-2 border-gray-200 divide-y divide-gray-200 overflow-hidden">
               {[
                 { q: '이 프롬프트는 그대로 써도 되나요?', a: '네. ChatGPT, Claude, Gemini에 바로 붙여넣기하면 됩니다.' },
                 { q: '왜 5개나 만들어 주나요?', a: '상황에 따라 적합한 전략이 다르기 때문입니다. 비교해서 선택하세요.' },
                 { q: '무료 체험은 어떻게 제한되나요?', a: '하루 3회까지 생성할 수 있습니다. 자정에 초기화됩니다.' },
               ].map((item, idx) => (
-                <div key={idx} className="card-saas border-2 border-gray-200">
+                <div key={idx}>
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full flex items-center justify-between text-left"
+                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
                   >
-                    <span className="font-semibold text-gray-900 text-lg pr-4">{item.q}</span>
-                    <span className="text-2xl text-gray-400 flex-shrink-0">{openFaq === idx ? '−' : '+'}</span>
+                    <span className="font-semibold text-gray-900 text-lg pr-6">{item.q}</span>
+                    <span className="text-xl text-gray-400 flex-shrink-0 transition-transform duration-200" style={{ transform: openFaq === idx ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </span>
                   </button>
                   {openFaq === idx && (
-                    <div className="mt-4 pt-4 border-t border-gray-200 text-gray-600 leading-relaxed">
+                    <div className="px-8 pb-6 text-gray-600 text-base leading-relaxed">
                       {item.a}
                     </div>
                   )}
