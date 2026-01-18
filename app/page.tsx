@@ -131,22 +131,22 @@ export default function HomePage() {
             <p className="text-lg text-gray-600">상황에 맞는 프롬프트를 고를 수 있습니다</p>
           </div>
 
-          <div className="grid md:grid-cols-5 gap-4">
-            {[
-              { id: 'A', label: '안정형', desc: '실수 없이', color: 'bg-indigo-50 border-indigo-200 text-indigo-700' },
-              { id: 'B', label: '성과형', desc: '목표 중심', color: 'bg-purple-50 border-purple-200 text-purple-700' },
-              { id: 'C', label: '구조형', desc: '규칙 명확', color: 'bg-pink-50 border-pink-200 text-pink-700' },
-              { id: 'D', label: '확장형', desc: '아이디어 확장', color: 'bg-amber-50 border-amber-200 text-amber-700' },
-              { id: 'E', label: '요약형', desc: '짧고 빠르게', color: 'bg-green-50 border-green-200 text-green-700' },
-            ].map((strategy) => (
-              <div key={strategy.id} className={`card-saas border-2 ${strategy.color} hover:shadow-lg transition-all`}>
-                <div className="text-center">
-                  <div className="text-2xl font-bold mb-1">{strategy.id}</div>
-                  <div className="text-base font-semibold mb-1">{strategy.label}</div>
-                  <div className="text-sm">{strategy.desc}</div>
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200 p-8">
+            <div className="grid md:grid-cols-5 gap-8">
+              {[
+                { id: 'A', label: '안정형', desc: '실수 없이' },
+                { id: 'B', label: '성과형', desc: '목표 중심' },
+                { id: 'C', label: '구조형', desc: '규칙 명확' },
+                { id: 'D', label: '확장형', desc: '아이디어 확장' },
+                { id: 'E', label: '요약형', desc: '짧고 빠르게' },
+              ].map((strategy) => (
+                <div key={strategy.id} className="text-center">
+                  <div className="text-3xl font-bold text-gray-900 mb-2">{strategy.id}</div>
+                  <div className="text-base font-semibold text-gray-700 mb-1">{strategy.label}</div>
+                  <div className="text-sm text-gray-500">{strategy.desc}</div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -155,26 +155,24 @@ export default function HomePage() {
       <section className="section-major bg-gray-50">
         <div className="container-saas">
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold text-gray-900 mb-16 text-center">자주 묻는 질문</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-12 text-center">자주 묻는 질문</h2>
 
-            <div className="bg-white rounded-2xl border border-gray-200 divide-y divide-gray-200">
+            <div className="space-y-3">
               {[
                 { q: '이 프롬프트는 그대로 써도 되나요?', a: '네. ChatGPT, Claude, Gemini에 바로 붙여넣기하면 됩니다.' },
                 { q: '왜 5개나 만들어 주나요?', a: '상황에 따라 적합한 전략이 다르기 때문입니다. 비교해서 선택하세요.' },
                 { q: '무료 체험은 어떻게 제한되나요?', a: '하루 3회까지 생성할 수 있습니다. 자정에 초기화됩니다.' },
               ].map((item, idx) => (
-                <div key={idx}>
+                <div key={idx} className="card-saas border-2 border-gray-200">
                   <button
                     onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                    className="w-full px-8 py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between text-left"
                   >
-                    <span className="font-semibold text-gray-900 text-lg pr-6">{item.q}</span>
-                    <span className="text-2xl text-gray-400 flex-shrink-0 transition-transform duration-200" style={{ transform: openFaq === idx ? 'rotate(45deg)' : 'rotate(0deg)' }}>
-                      +
-                    </span>
+                    <span className="font-semibold text-gray-900 text-lg pr-4">{item.q}</span>
+                    <span className="text-2xl text-gray-400 flex-shrink-0">{openFaq === idx ? '−' : '+'}</span>
                   </button>
                   {openFaq === idx && (
-                    <div className="px-8 pb-6 text-gray-600 leading-relaxed animate-fadeIn">
+                    <div className="mt-4 pt-4 border-t border-gray-200 text-gray-600 leading-relaxed">
                       {item.a}
                     </div>
                   )}
