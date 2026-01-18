@@ -132,27 +132,29 @@ export default function HomePage() {
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <table className="w-full bg-white rounded-2xl border-2 border-gray-300 overflow-hidden">
-              <tbody>
-                {[
-                  { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
-                  { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
-                  { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
-                  { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
-                  { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
-                ].map((strategy, idx, arr) => (
-                  <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-300' : ''} hover:bg-gray-50 transition-colors`}>
-                    <td className="px-8 py-6 w-16">
-                      <div className="text-3xl font-bold text-gray-900">{strategy.id}</div>
-                    </td>
-                    <td className="px-6 py-6">
-                      <div className="text-lg font-semibold text-gray-900 mb-1">{strategy.label}</div>
-                      <div className="text-sm text-gray-600">{strategy.desc}</div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <div className="bg-white rounded-2xl border-2 border-gray-300 overflow-hidden">
+              <table className="w-full">
+                <tbody>
+                  {[
+                    { id: 'A', label: '안정형', desc: '실수 없이 쓰기 좋은 보수적 프롬프트' },
+                    { id: 'B', label: '성과형', desc: '목표 중심으로 결과를 강조하는 프롬프트' },
+                    { id: 'C', label: '구조형', desc: '규칙이 명확하고 단계가 체계적인 프롬프트' },
+                    { id: 'D', label: '확장형', desc: '아이디어를 확장하고 창의성을 끌어내는 프롬프트' },
+                    { id: 'E', label: '요약형', desc: '짧고 빠르게, 핵심만 담은 프롬프트' },
+                  ].map((strategy, idx, arr) => (
+                    <tr key={strategy.id} className={`${idx !== arr.length - 1 ? 'border-b-2 border-gray-300' : ''}`}>
+                      <td className="px-8 py-6 w-20 border-r-2 border-gray-300 bg-gray-50">
+                        <div className="text-3xl font-bold text-gray-900 text-center">{strategy.id}</div>
+                      </td>
+                      <td className="px-8 py-6">
+                        <div className="text-lg font-bold text-gray-900 mb-1">{strategy.label}</div>
+                        <div className="text-sm text-gray-600">{strategy.desc}</div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
