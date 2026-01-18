@@ -5,14 +5,53 @@ import { buildPromptForAI, variantStrategies, type AITarget, type LengthPreset, 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 const MODEL_NAME = process.env.MODEL_NAME || 'gpt-4o-mini';
 
+// Tone 타입 매핑 (한글/영문 지원)
+const TONE_MAP: Record<string, ToneType> = {
+  professional: 'professional',
+  '전문적': 'professional',
+  casual: 'casual',
+  '캐주얼': 'casual',
+  '편한': 'casual',
+  technical: 'technical',
+  '기술적': 'technical',
+  creative: 'creative',
+  '창의적': 'creative',
+};
+
+function toToneType(v: unknown): ToneType {
+  const key = String(v ?? '').trim();
+  return TONE_MAP[key] ?? 'professional';
+}
+
+// OutputFormat 타입 매핑 (한글/영문 지원)
+const OUTPUT_MAP: Record<string, OutputFormat> = {
+  paragraph: 'paragraph',
+  '문단': 'paragraph',
+  checklist: 'checklist',
+  '체크리스트': 'checklist',
+  '목록': 'checklist',
+  table: 'table',
+  '표': 'table',
+  markdown: 'markdown',
+  '마크다운': 'markdown',
+  json: 'json',
+  script: 'script',
+  '스크립트': 'script',
+};
+
+function toOutputFormat(v: unknown): OutputFormat {
+  const key = String(v ?? '').trim();
+  return OUTPUT_MAP[key] ?? 'paragraph';
+}
+
 interface GenerateRequest {
   snippets: string;
   goalType: string;
   aiTarget: AITarget;
   language: 'ko' | 'en';
-  tone: ToneType;
+  tone: string; // 런타임에서는 string으로 받음
   lengthPreset: LengthPreset;
-  outputFormat: OutputFormat;
+  outputFormat: string; // 런타임에서는 string으로 받음
 }
 
 interface PromptOption {
@@ -80,7 +119,11 @@ async function callOpenAI(systemPrompt: string, userPrompt: string, retries = 1)
 export async function POST(request: NextRequest) {
   try {
     const body: GenerateRequest = await request.json();
-    const { snippets, goalType, aiTarget, language, tone, lengthPreset, outputFormat } = body;
+    const { snippets, goalType, aiTarget, language, lengthPreset } = body;
+
+    // 타입 안전하게 변환
+    const tone: ToneType = toToneType(body.tone);
+    const outputFormat: OutputFormat = toOutputFormat(body.outputFormat);
 
     // 입력 검증
     if (!snippets || !goalType) {
