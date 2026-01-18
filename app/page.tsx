@@ -8,18 +8,18 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
+      {/* Header - 간격 개선 */}
       <header className="border-b border-gray-200 bg-white sticky top-0 z-50">
         <div className="container-saas">
-          <div className="flex items-center justify-between h-16">
-            <Link href="/" className="flex items-center gap-2 no-underline">
+          <div className="flex items-center justify-between h-16 gap-12">
+            <Link href="/" className="flex items-center gap-3 no-underline">
               <div className="w-9 h-9 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">PP</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">Prompt Picker</span>
+              <span className="text-xl font-bold text-gray-900 no-underline">Prompt Picker</span>
             </Link>
 
-            <Link href="/tool" className="btn-primary">
+            <Link href="/tool" className="btn-primary flex-shrink-0">
               무료 체험
             </Link>
           </div>
@@ -215,27 +215,44 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-gradient-to-r from-indigo-600 to-purple-600">
-        <div className="container-saas text-center">
-          <h2 className="text-5xl font-bold text-white mb-6">지금 바로 시작하세요</h2>
-          <p className="text-xl text-indigo-100 mb-10 max-w-2xl mx-auto">
-            신용카드 등록 없이 무료로 체험할 수 있습니다
-          </p>
-          <Link href="/tool" className="inline-block px-10 py-4 bg-white text-indigo-600 text-lg font-bold rounded-lg hover:bg-gray-50 transition-all shadow-2xl no-underline">
-            무료로 시작하기
-          </Link>
+      {/* CTA Card - 전문가 수준 */}
+      <section className="py-16 bg-gray-50">
+        <div className="container-saas">
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-2xl border-2 border-gray-200 p-10 shadow-sm text-center">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                지금 바로 시작하세요
+              </h2>
+              <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+                신용카드 등록 없이 무료로 체험할 수 있습니다
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Link 
+                  href="/tool" 
+                  className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white text-lg font-bold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg hover:shadow-xl no-underline"
+                >
+                  무료로 시작하기
+                </Link>
+                <a 
+                  href="#demo" 
+                  className="inline-flex items-center justify-center px-8 py-4 bg-white text-gray-700 text-lg font-semibold rounded-xl border-2 border-gray-300 hover:border-gray-400 hover:bg-gray-50 transition-all no-underline"
+                >
+                  데모 보기
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 py-12">
+      {/* Footer - 단정하게 */}
+      <footer className="bg-gray-900 py-8">
         <div className="container-saas text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">PP</span>
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <div className="w-7 h-7 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-xs">PP</span>
             </div>
-            <span className="text-white font-bold text-lg">Prompt Picker</span>
+            <span className="text-white font-bold text-base">Prompt Picker</span>
           </div>
           <p className="text-sm text-gray-400">© 2026 Prompt Picker. All rights reserved.</p>
         </div>
