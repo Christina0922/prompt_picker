@@ -13,11 +13,11 @@ interface SelectorsCardProps {
 }
 
 const GOALS = [
-  { value: 'content', label: '콘텐츠 작성', sublabel: 'Content' },
-  { value: 'analysis', label: '분석', sublabel: 'Analysis' },
-  { value: 'code', label: '코드', sublabel: 'Code' },
-  { value: 'translation', label: '번역', sublabel: 'Translation' },
-  { value: 'creative', label: '창작', sublabel: 'Creative' },
+  { value: 'content', label: '콘텐츠' },
+  { value: 'analysis', label: '분석' },
+  { value: 'code', label: '코드' },
+  { value: 'translation', label: '번역' },
+  { value: 'creative', label: '창작' },
 ];
 
 const AI_PLATFORMS = [
@@ -28,9 +28,9 @@ const AI_PLATFORMS = [
 ];
 
 const LENGTHS = [
-  { value: 'short', label: '짧게', sublabel: 'Concise' },
-  { value: 'medium', label: '보통', sublabel: 'Balanced' },
-  { value: 'detailed', label: '상세', sublabel: 'Detailed' },
+  { value: 'short', label: '짧게' },
+  { value: 'medium', label: '보통' },
+  { value: 'detailed', label: '상세' },
 ];
 
 export default function SelectorsCard({
@@ -54,14 +54,13 @@ export default function SelectorsCard({
               <button
                 key={goal.value}
                 onClick={() => onGoalTypeChange(goal.value)}
-                className={`p-3 rounded-xl border-2 transition-all duration-200 ${
+                className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   goalType === goal.value
-                    ? 'border-indigo-500 bg-indigo-50 shadow-sm'
-                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200'
                 }`}
               >
-                <div className="text-xs font-semibold text-gray-900">{goal.label}</div>
-                <div className="text-xs text-gray-500 mt-1">{goal.sublabel}</div>
+                {goal.label}
               </button>
             ))}
           </div>

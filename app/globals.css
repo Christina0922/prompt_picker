@@ -14,6 +14,19 @@ body {
   line-height: 1.6;
 }
 
+/* 링크 밑줄 제거 (전문적인 UI) */
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.no-underline {
+  text-decoration: none !important;
+}
+
 /* Next.js 개발 인디케이터 완전 숨김 */
 #__next-build-watcher,
 [data-nextjs-build-indicator],

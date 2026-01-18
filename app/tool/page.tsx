@@ -127,14 +127,14 @@ export default function ToolPage() {
 
   return (
     <ToolLayout remaining={remaining} onUpgradeClick={() => setShowProModal(true)}>
-      <div className="space-y-8">
-        {/* Page Header */}
-        <div className="text-center space-y-2">
-          <h1 className="text-4xl font-bold text-gray-900">
+      <div className="space-y-6">
+        {/* Page Header - 카드로 */}
+        <div className="bg-white rounded-2xl border border-gray-200 p-6 text-center">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
             프롬프트 후보 생성
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            조각을 입력하고 옵션을 선택하면, 5가지 전략의 최적화된 프롬프트가 생성됩니다
+          <p className="text-base text-gray-600">
+            조각을 입력하고 옵션을 선택하면, 5가지 전략의 프롬프트가 생성됩니다
           </p>
         </div>
 
@@ -162,30 +162,29 @@ export default function ToolPage() {
         />
 
         {/* Generate CTA */}
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col items-end gap-2">
           <Button
             onClick={handleGenerate}
             disabled={isGenerating || !snippets.trim()}
-            fullWidth
             size="lg"
-            className="max-w-md shadow-2xl"
+            className="shadow-lg min-w-[200px]"
           >
-            {isGenerating ? '프롬프트 생성 중...' : '후보 5개 생성'}
+            {isGenerating ? '생성 중...' : '후보 5개 생성'}
           </Button>
           
-          {!isGenerating && snippets.trim() && (
-            <p className="text-sm text-gray-500">
-              생성 버튼을 클릭하면 AI가 5가지 전략의 프롬프트를 생성합니다
+          {!isGenerating && (
+            <p className="text-xs text-gray-500">
+              무료 체험은 하루 3회까지 가능합니다
             </p>
           )}
         </div>
 
         {/* Error Message */}
         {error && (
-          <div className="bg-red-50 border-l-4 border-red-500 rounded-xl p-5 animate-in slide-in-from-top-2 duration-200">
+          <div className="bg-red-50 border-l-4 border-red-500 rounded-xl p-4">
             <div className="flex items-start justify-between">
               <div className="flex-1">
-                <h3 className="text-sm font-semibold text-red-900 mb-1">오류 발생</h3>
+                <h3 className="text-sm font-semibold text-red-900 mb-1">오류</h3>
                 <p className="text-sm text-red-700">{error}</p>
               </div>
               <button
