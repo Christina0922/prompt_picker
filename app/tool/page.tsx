@@ -98,7 +98,7 @@ export default function ToolPage() {
 
   const handleTune = async (
     tuneType: 'shorter' | 'moreSpecific' | 'charLimit',
-    charLimit?: number
+    charLimitValue?: number
   ) => {
     if (!finalPrompt) return;
 
@@ -109,7 +109,7 @@ export default function ToolPage() {
         body: JSON.stringify({
           finalPrompt,
           tuneType,
-          charLimitValue: charLimit,
+          charLimitValue,
         }),
       });
 
@@ -121,7 +121,7 @@ export default function ToolPage() {
 
       setFinalPrompt(data.tunedPrompt);
     } catch (err: any) {
-      alert(err.message || '튜닝에 실패했습니다');
+      console.error('Tune error:', err);
     }
   };
 
@@ -129,24 +129,24 @@ export default function ToolPage() {
     <ToolLayout remaining={remaining} onUpgradeClick={() => setShowProModal(true)}>
       <div className="container-saas">
         {/* Hero Section */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-16">
+          <h1 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-6">
             프롬프트 생성기
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            조각만 입력하면 5가지 전략의 완성된 프롬프트를 10초 안에 생성합니다
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            조각만 입력하면 AI가 5가지 전략의 완성된 프롬프트를 생성합니다
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto space-y-6">
-          {/* Main Input Section */}
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Left: Snippet Input (2/3 width) */}
+        <div className="max-w-6xl mx-auto">
+          {/* Main Input Area */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-8">
+            {/* Left: Snippet Input (2/3) */}
             <div className="lg:col-span-2">
               <SnippetCard value={snippets} onChange={setSnippets} />
             </div>
 
-            {/* Right: Selectors (1/3 width) */}
+            {/* Right: Quick Settings (1/3) */}
             <div className="lg:col-span-1">
               <SelectorsCard
                 goalType={goalType}
@@ -160,36 +160,38 @@ export default function ToolPage() {
           </div>
 
           {/* Advanced Options */}
-          <AdvancedOptionsCard
-            language={language}
-            onLanguageChange={setLanguage}
-            tone={tone}
-            onToneChange={setTone}
-            outputFormat={outputFormat}
-            onOutputFormatChange={setOutputFormat}
-          />
+          <div className="mb-10">
+            <AdvancedOptionsCard
+              language={language}
+              onLanguageChange={setLanguage}
+              tone={tone}
+              onToneChange={setTone}
+              outputFormat={outputFormat}
+              onOutputFormatChange={setOutputFormat}
+            />
+          </div>
 
-          {/* Generate CTA */}
-          <div className="flex flex-col items-center gap-3 py-6">
+          {/* Generate Button - Centered & Large */}
+          <div className="flex flex-col items-center gap-4 py-8">
             <Button
               onClick={handleGenerate}
               disabled={isGenerating || !snippets.trim()}
               size="lg"
-              className="min-w-[300px] h-14 text-lg font-bold shadow-lg"
+              className="min-w-[400px] h-16 text-xl font-bold shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all"
             >
               {isGenerating ? '프롬프트 생성 중...' : '후보 5개 생성하기'}
             </Button>
             
             {!isGenerating && (
               <p className="text-sm text-gray-500">
-                무료 체험 · 하루 3회까지 생성 가능
+                무료 체험 · 하루 3회까지 사용 가능
               </p>
             )}
           </div>
 
           {/* Error Message */}
           {error && (
-            <div className="card-saas bg-red-50 border-2 border-red-200">
+            <div className="card-saas bg-red-50 border-2 border-red-200 mb-8">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <h3 className="text-base font-bold text-red-900 mb-1">생성 오류</h3>
@@ -207,10 +209,10 @@ export default function ToolPage() {
 
           {/* Results Section */}
           {options.length > 0 && (
-            <div id="results" className="pt-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">생성 완료</h2>
-                <p className="text-lg text-gray-600">5가지 전략의 프롬프트 중 하나를 선택하세요</p>
+            <div id="results" className="mt-16">
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-bold text-gray-900 mb-3">생성 완료</h2>
+                <p className="text-lg text-gray-600">5가지 전략의 프롬프트가 준비되었습니다</p>
               </div>
               <ResultsGrid options={options} onSelect={handleSelectPrompt} />
             </div>
