@@ -1,0 +1,176 @@
+.main {
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.leftColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.rightColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.generateButton {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  border-radius: 9999px;
+  border: 1px solid;
+  padding: 12px 32px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+
+.buttonPrimary {
+  border-color: #171717;
+  background: #171717;
+  color: white;
+}
+
+.buttonPrimary:hover {
+  background: #262626;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.buttonPrimary:active {
+  transform: scale(0.98);
+}
+
+.buttonDisabled {
+  border-color: #e5e7eb;
+  background: #f5f5f5;
+  color: #a3a3a3;
+  cursor: not-allowed;
+}
+
+.card {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 24px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #171717;
+}
+
+.cardDesc {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.7;
+}
+
+.tableWrapper {
+  margin-top: 16px;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.table {
+  width: 100%;
+  text-align: left;
+  font-size: 13px;
+}
+
+.tableHead {
+  background: #fafafa;
+}
+
+.tableHeadRow {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tableHeadCell {
+  padding: 12px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #525252;
+}
+
+.tableBody {
+  display: table-row-group;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 80px 1fr 1fr;
+  border-bottom: 1px solid #f5f5f5;
+  background: white;
+  transition: background-color 0.15s;
+}
+
+.tableRow:hover {
+  background: #fafafa;
+}
+
+.tableCell {
+  padding: 12px 16px;
+  color: #404040;
+  line-height: 1.7;
+}
+
+.tableCellBold {
+  font-weight: 600;
+  color: #171717;
+}
+
+.tableNote {
+  margin-top: 16px;
+  font-size: 12px;
+  color: #737373;
+  line-height: 1.7;
+}
+
+.checklistTableHeadRow {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.checklistTableRow {
+  display: grid;
+  grid-template-columns: 128px 1fr;
+  border-bottom: 1px solid #f5f5f5;
+  background: white;
+  transition: background-color 0.15s;
+}
+
+.checklistTableRow:hover {
+  background: #fafafa;
+}
+

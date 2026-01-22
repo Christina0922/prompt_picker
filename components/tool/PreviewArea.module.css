@@ -1,0 +1,231 @@
+.card {
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 24px;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #171717;
+}
+
+.desc {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #525252;
+  line-height: 1.7;
+}
+
+.errorBox {
+  margin-top: 16px;
+  border-radius: 12px;
+  border: 1px solid #fca5a5;
+  background: #fef2f2;
+  padding: 16px;
+}
+
+.errorTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #991b1b;
+}
+
+.errorMsg {
+  margin-top: 4px;
+  font-size: 14px;
+  color: #b91c1c;
+  line-height: 1.7;
+}
+
+.emptyBox {
+  margin-top: 16px;
+  border-radius: 12px;
+  border: 1px dashed #d4d4d4;
+  background: rgba(250, 250, 250, 0.5);
+  padding: 24px;
+  font-size: 14px;
+  color: #737373;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.resultsList {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resultCard {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 16px;
+  transition: all 0.15s;
+}
+
+.resultCardSelected {
+  border-color: #171717;
+  border-width: 2px;
+  background: rgba(250, 250, 250, 0.5);
+}
+
+.resultCardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.frameBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #171717;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.frameBadgeSelected {
+  background: #171717;
+}
+
+.frameTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #171717;
+  flex: 1;
+}
+
+.frameDesc {
+  font-size: 12px;
+  color: #737373;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.resultText {
+  border-radius: 8px;
+  border: 1px dashed #d4d4d4;
+  background: rgba(250, 250, 250, 0.5);
+  padding: 12px;
+  font-size: 13px;
+  color: #404040;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  margin-bottom: 12px;
+}
+
+.resultActions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.selectedLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #171717;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f5f5f5;
+}
+
+.tabs {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  border-radius: 9999px;
+  border: 1px solid;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.tabActive {
+  border-color: #171717;
+  background: #171717;
+  color: white;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.tabInactive {
+  border-color: #e5e7eb;
+  background: white;
+  color: #171717;
+}
+
+.tabInactive:hover {
+  background: #fafafa;
+  border-color: #d4d4d4;
+}
+
+.content {
+  margin-top: 16px;
+}
+
+.contentHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.contentTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #171717;
+}
+
+.outputBox {
+  border-radius: 12px;
+  border: 1px dashed #d4d4d4;
+  background: rgba(250, 250, 250, 0.5);
+  padding: 16px;
+  font-size: 14px;
+  color: #404040;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  line-height: 1.7;
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+.selectButton {
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #404040;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.selectButton:hover {
+  background: #fafafa;
+  border-color: #d4d4d4;
+}
+
+.selectButtonSelected {
+  border-color: #171717;
+  background: #171717;
+  color: white;
+}

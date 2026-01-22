@@ -73,6 +73,49 @@ type Dict = {
     recommended: string;
   }>;
   blacklist: string;
+  exampleButtons: {
+    marketing: string;
+    meeting: string;
+    risk: string;
+  };
+  historyTitle: string;
+  historyEmpty: string;
+  historyClear: string;
+  copySuccess: string;
+  copyFailed: string;
+  copyButton: string;
+  generateButton: string;
+  generating: string;
+  toneLabel: string;
+  tone: {
+    neutral: string;
+    formal: string;
+    friendly: string;
+  };
+  mustIncludeLabel: string;
+  avoidLabel: string;
+    minChars: string;
+    maxChars: string;
+    exampleTexts: {
+      marketing: string;
+      meeting: string;
+      risk: string;
+    };
+    restore: string;
+    clearConfirm: string;
+    home: string;
+    frameDescriptions: {
+      A: string;
+      B: string;
+      C: string;
+      D: string;
+      E: string;
+    };
+    selectResult: string;
+    selected: string;
+    candidate: string;
+    selectedFrame: string;
+    copySelected: string;
 };
 
 export const I18N: Record<Lang, Dict> = {
@@ -153,6 +196,49 @@ export const I18N: Record<Lang, Dict> = {
       { item: '톤', recommended: '일관성 유지' },
     ],
     blacklist: '금지어: 개인정보, 내부기밀, 저작권 침해 내용',
+    exampleButtons: {
+      marketing: '마케팅 광고 문구',
+      meeting: '회의 아젠다',
+      risk: '리스크 점검 체크리스트',
+    },
+    historyTitle: '최근 기록',
+    historyEmpty: '기록이 없습니다.',
+    historyClear: '전체 삭제',
+    copySuccess: '복사됨',
+    copyFailed: '복사 실패',
+    copyButton: '복사',
+    generateButton: '후보 5개 생성하기',
+    generating: '생성 중...',
+    toneLabel: '톤',
+    tone: {
+      neutral: '중립',
+      formal: '격식',
+      friendly: '친근',
+    },
+    mustIncludeLabel: '필수 포함',
+    avoidLabel: '금지어',
+    minChars: '자 이상',
+    maxChars: '자 미만',
+    exampleTexts: {
+      marketing: '운동화 광고, 2030 여성 타깃, 편안함 강조, 인스타용, 브랜드 톤 유지',
+      meeting: '월간 성과 리뷰, 부서별 KPI 점검, 다음 분기 계획 수립, 액션 아이템 도출',
+      risk: '신규 서비스 출시, 법적 리스크, 데이터 보안, 사용자 프라이버시, 규제 준수',
+    },
+    restore: '복원',
+    clearConfirm: '전체 삭제하시겠습니까?',
+    home: '홈',
+    frameDescriptions: {
+      A: '초간단: 최소 지시, 핵심 요구 3줄 이내',
+      B: '균형: 역할+목표+조건+출력 형식 포함',
+      C: '제약 강화: 금지어/필수/형식/길이 제약을 엄격하게 강조',
+      D: '구조 고정: 반드시 지정된 섹션 구조로 출력하도록 강제',
+      E: '확장형: 3가지 대안을 생성하고 각각 장단점 1줄 포함',
+    },
+    selectResult: '이 결과로 설정',
+    selected: '선택됨',
+    candidate: '후보',
+    selectedFrame: '선택된 프레임',
+    copySelected: '선택 결과 복사',
   },
 
   en: {
@@ -232,6 +318,49 @@ export const I18N: Record<Lang, Dict> = {
       { item: 'Tone', recommended: 'Maintain consistency' },
     ],
     blacklist: 'Forbidden: Personal info, internal secrets, copyright infringement',
+    exampleButtons: {
+      marketing: 'Marketing Ad Copy',
+      meeting: 'Meeting Agenda',
+      risk: 'Risk Checklist',
+    },
+    historyTitle: 'History',
+    historyEmpty: 'No history yet.',
+    historyClear: 'Clear All',
+    copySuccess: 'Copied',
+    copyFailed: 'Copy failed',
+    copyButton: 'Copy',
+    generateButton: 'Generate 5 candidates',
+    generating: 'Generating...',
+    toneLabel: 'Tone',
+    tone: {
+      neutral: 'Neutral',
+      formal: 'Formal',
+      friendly: 'Friendly',
+    },
+    mustIncludeLabel: 'Must include',
+    avoidLabel: 'Avoid words',
+    minChars: 'Min characters',
+    maxChars: 'Max characters',
+    exampleTexts: {
+      marketing: 'Sneaker ad, women 20-30s, comfort focus, Instagram, maintain brand tone',
+      meeting: 'Monthly performance review, department KPI check, next quarter planning, action items',
+      risk: 'New service launch, legal risks, data security, user privacy, regulatory compliance',
+    },
+    restore: 'Restore',
+    clearConfirm: 'Clear all history?',
+    home: 'Home',
+    frameDescriptions: {
+      A: 'Ultra Simple: Minimal instructions, core requirements within 3 lines',
+      B: 'Balanced: Includes role, goal, conditions, and output format',
+      C: 'Strict Constraints: Emphasizes forbidden words, required elements, format, and length constraints strictly',
+      D: 'Fixed Structure: Forces output in a specified section structure',
+      E: 'Extended: Generates 3 alternatives with pros and cons for each',
+    },
+    selectResult: 'Use this result',
+    selected: 'Selected',
+    candidate: 'Candidate',
+    selectedFrame: 'Selected frame',
+    copySelected: 'Copy selected',
   },
 };
 

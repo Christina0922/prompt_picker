@@ -1,5 +1,5 @@
 import "./globals.css";
-import { UiLangProvider } from "@/lib/i18n/UiLangProvider";
+import { UiLangProvider } from "@/components/tool/UiLangContext";
 
 export const metadata = {
   title: "Prompt Picker",
