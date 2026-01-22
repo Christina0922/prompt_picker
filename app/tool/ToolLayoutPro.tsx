@@ -6,7 +6,7 @@ import { useUiLang } from "@/lib/i18n/UiLangProvider";
 
 type Purpose = "content" | "analysis" | "code" | "translate" | "doc";
 type Platform = "auto" | "chatgpt" | "claude" | "gemini";
-type LengthOpt = "short" | "normal" | "detailed";
+type LengthOpt = "short" | "normal" | "detailed" | "custom";
 
 type ApiItem = { key: string; title?: string; prompt: string };
 
@@ -26,6 +26,8 @@ export default function ToolLayoutPro() {
   const [format, setFormat] = useState<"plain" | "bullets" | "table">("plain");
   const [mustInclude, setMustInclude] = useState("");
   const [avoid, setAvoid] = useState("");
+  const [minLength, setMinLength] = useState("");
+  const [maxLength, setMaxLength] = useState("");
 
   const [loading, setLoading] = useState(false);
   const [items, setItems] = useState<ApiItem[]>([]);
@@ -71,19 +73,70 @@ export default function ToolLayoutPro() {
     setError("");
     setItems([]);
 
-    const payload = {
-      uiLang,
-      input: input.trim(),
-      purpose,
-      platform,
-      length,
-      advanced: {
-        tone,
-        format,
-        mustInclude: mustInclude.trim() || undefined,
-        avoid: avoid.trim() || undefined,
-      },
+    // Tone 매핑: neutral -> professional, formal -> professional, friendly -> casual
+    const toneMap: Record<string, string> = {
+      neutral: "professional",
+      formal: "professional",
+      friendly: "casual",
     };
+
+    // Format 매핑: plain -> paragraph, bullets -> checklist, table -> table
+    const formatMap: Record<string, string> = {
+      plain: "paragraph",
+      bullets: "checklist",
+      table: "table",
+    };
+
+    // Length 매핑: short -> short, normal -> medium, detailed -> detailed, custom -> custom
+    const lengthMap: Record<string, string> = {
+      short: "short",
+      normal: "medium",
+      detailed: "detailed",
+      custom: "custom",
+    };
+
+    // 커스텀 길이가 설정된 경우 처리
+    let finalLengthPreset = lengthMap[length] || length;
+    if (length === "custom") {
+      // minLength나 maxLength가 있으면 custom으로 처리
+      if (minLength || maxLength) {
+        finalLengthPreset = "custom";
+      } else {
+        // 값이 없으면 normal로 폴백
+        finalLengthPreset = "medium";
+      }
+    }
+
+    // Purpose를 goalType으로 변환
+    const purposeMap: Record<string, string> = {
+      content: uiLang === "kr" ? "콘텐츠 생성" : "Content Generation",
+      analysis: uiLang === "kr" ? "분석" : "Analysis",
+      code: uiLang === "kr" ? "코드 작성" : "Code Writing",
+      translate: uiLang === "kr" ? "번역" : "Translation",
+      doc: uiLang === "kr" ? "문서 작성" : "Document Writing",
+    };
+
+    const payload = {
+      snippets: input.trim(),
+      goalType: purposeMap[purpose] || purpose,
+      aiTarget: platform,
+      language: uiLang === "kr" ? "ko" : "en",
+      tone: toneMap[tone] || tone,
+      lengthPreset: finalLengthPreset,
+      outputFormat: formatMap[format] || format,
+      minLength: minLength ? parseInt(minLength, 10) : undefined,
+      maxLength: maxLength ? parseInt(maxLength, 10) : undefined,
+    };
+
+    // mustInclude와 avoid가 있으면 snippets에 추가
+    let enhancedSnippets = payload.snippets;
+    if (mustInclude.trim()) {
+      enhancedSnippets += (uiLang === "kr" ? "\n\n필수 포함: " : "\n\nMust include: ") + mustInclude.trim();
+    }
+    if (avoid.trim()) {
+      enhancedSnippets += (uiLang === "kr" ? "\n\n금지어: " : "\n\nAvoid: ") + avoid.trim();
+    }
+    payload.snippets = enhancedSnippets;
 
     try {
       const r = await fetch("/api/generate", {
@@ -105,17 +158,20 @@ export default function ToolLayoutPro() {
         return;
       }
 
+      // API는 { success: true, options: [...] } 형식으로 반환
       const found =
+        (Array.isArray(json?.options) && json.options) ||
         (Array.isArray(json?.items) && json.items) ||
         (Array.isArray(json?.data?.items) && json.data.items) ||
         (Array.isArray(json?.result?.items) && json.result.items) ||
         null;
 
       if (found) {
+        // API 응답 형식: { id, title, bestWhen, promptText }
         const normalized: ApiItem[] = found.map((it: any, idx: number) => ({
-          key: String(it?.key ?? ["A", "B", "C", "D", "E"][idx] ?? `#${idx + 1}`),
+          key: String(it?.id ?? it?.key ?? ["A", "B", "C", "D", "E"][idx] ?? `#${idx + 1}`),
           title: it?.title ? String(it.title) : undefined,
-          prompt: String(it?.prompt ?? it?.text ?? it?.output ?? ""),
+          prompt: String(it?.promptText ?? it?.prompt ?? it?.text ?? it?.output ?? ""),
         }));
         setItems(normalized);
         setActiveKey(normalized[0]?.key ?? "A");
@@ -214,44 +270,76 @@ export default function ToolLayoutPro() {
               <button type="button" className={cx(styles.chip, length === "normal" && styles.active)} onClick={() => setLength("normal")}>
                 {t("보통", "Normal")}
               </button>
-              <button type="button" className={cx(styles.chip, length === "detailed" && styles.active)} onClick={() => setLength("detailed")}>
-                {t("상세", "Detailed")}
-              </button>
+            </div>
+            <div className={styles.lengthInputs}>
+              <div className={styles.lengthInputRow}>
+                <input
+                  type="number"
+                  className={styles.lengthInput}
+                  value={minLength}
+                  onChange={(e) => {
+                    setMinLength(e.target.value);
+                    if (e.target.value) setLength("custom");
+                  }}
+                  placeholder={t("자 이상", "chars or more")}
+                  min="0"
+                />
+              </div>
+              <div className={styles.lengthInputRow}>
+                <input
+                  type="number"
+                  className={styles.lengthInput}
+                  value={maxLength}
+                  onChange={(e) => {
+                    setMaxLength(e.target.value);
+                    if (e.target.value) setLength("custom");
+                  }}
+                  placeholder={t("자 미만", "chars or less")}
+                  min="0"
+                />
+              </div>
             </div>
           </div>
 
           <div className={styles.advanced}>
             <div className={styles.label}>{labels.advanced}</div>
 
-            <div className={styles.advRow}>
-              <div className={styles.subLabel}>{labels.format}</div>
-              <div className={styles.row}>
-                <button type="button" className={cx(styles.chip, format === "plain" && styles.active)} onClick={() => setFormat("plain")}>
-                  {t("문장", "Plain")}
-                </button>
-                <button type="button" className={cx(styles.chip, format === "bullets" && styles.active)} onClick={() => setFormat("bullets")}>
-                  {t("불릿", "Bullets")}
-                </button>
-                <button type="button" className={cx(styles.chip, format === "table" && styles.active)} onClick={() => setFormat("table")}>
-                  {t("표", "Table")}
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.advRow}>
-              <div className={styles.subLabel}>{labels.tone}</div>
-              <div className={styles.row}>
-                <button type="button" className={cx(styles.chip, tone === "neutral" && styles.active)} onClick={() => setTone("neutral")}>
-                  {t("중립", "Neutral")}
-                </button>
-                <button type="button" className={cx(styles.chip, tone === "formal" && styles.active)} onClick={() => setTone("formal")}>
-                  {t("격식", "Formal")}
-                </button>
-                <button type="button" className={cx(styles.chip, tone === "friendly" && styles.active)} onClick={() => setTone("friendly")}>
-                  {t("친근", "Friendly")}
-                </button>
-              </div>
-            </div>
+            <table className={styles.advTable}>
+              <tbody>
+                <tr>
+                  <td className={styles.advTableLabel}>{labels.format}</td>
+                  <td className={styles.advTableOptions}>
+                    <div className={styles.row}>
+                      <button type="button" className={cx(styles.chip, format === "plain" && styles.active)} onClick={() => setFormat("plain")}>
+                        {t("문장", "Plain")}
+                      </button>
+                      <button type="button" className={cx(styles.chip, format === "bullets" && styles.active)} onClick={() => setFormat("bullets")}>
+                        {t("불릿", "Bullets")}
+                      </button>
+                      <button type="button" className={cx(styles.chip, format === "table" && styles.active)} onClick={() => setFormat("table")}>
+                        {t("표", "Table")}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td className={styles.advTableLabel}>{labels.tone}</td>
+                  <td className={styles.advTableOptions}>
+                    <div className={styles.row}>
+                      <button type="button" className={cx(styles.chip, tone === "neutral" && styles.active)} onClick={() => setTone("neutral")}>
+                        {t("중립", "Neutral")}
+                      </button>
+                      <button type="button" className={cx(styles.chip, tone === "formal" && styles.active)} onClick={() => setTone("formal")}>
+                        {t("격식", "Formal")}
+                      </button>
+                      <button type="button" className={cx(styles.chip, tone === "friendly" && styles.active)} onClick={() => setTone("friendly")}>
+                        {t("친근", "Friendly")}
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
 
             <div className={styles.advGrid}>
               <div>

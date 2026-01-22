@@ -40,9 +40,6 @@ function TopHeader() {
 
         <div style={styles.rightControls}>
           <LangSegment lang={lang} setLang={handleLangChange} />
-          <Link href="/tool" style={styles.startBtn}>
-            {startLabel || "시작하기"}
-          </Link>
         </div>
       </div>
     </header>

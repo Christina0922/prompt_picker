@@ -9,9 +9,12 @@ const MODEL_NAME = process.env.MODEL_NAME || 'gpt-4o-mini';
 const TONE_MAP: Record<string, ToneType> = {
   professional: 'professional',
   '전문적': 'professional',
+  neutral: 'professional', // neutral -> professional
+  formal: 'professional', // formal -> professional
   casual: 'casual',
   '캐주얼': 'casual',
   '편한': 'casual',
+  friendly: 'casual', // friendly -> casual
   technical: 'technical',
   '기술적': 'technical',
   creative: 'creative',
@@ -27,9 +30,11 @@ function toToneType(v: unknown): ToneType {
 const OUTPUT_MAP: Record<string, OutputFormat> = {
   paragraph: 'paragraph',
   '문단': 'paragraph',
+  plain: 'paragraph', // plain -> paragraph
   checklist: 'checklist',
   '체크리스트': 'checklist',
   '목록': 'checklist',
+  bullets: 'checklist', // bullets -> checklist
   table: 'table',
   '표': 'table',
   markdown: 'markdown',
@@ -50,8 +55,10 @@ interface GenerateRequest {
   aiTarget: AITarget;
   language: 'ko' | 'en';
   tone: string; // 런타임에서는 string으로 받음
-  lengthPreset: LengthPreset;
+  lengthPreset: LengthPreset | 'custom' | string;
   outputFormat: string; // 런타임에서는 string으로 받음
+  minLength?: number;
+  maxLength?: number;
 }
 
 interface PromptOption {
@@ -118,12 +125,15 @@ async function callOpenAI(systemPrompt: string, userPrompt: string, retries = 1)
 
 export async function POST(request: NextRequest) {
   try {
-    const body: GenerateRequest = await request.json();
-    const { snippets, goalType, aiTarget, language, lengthPreset } = body;
+    const body: any = await request.json();
+    const { snippets, goalType, aiTarget, language, lengthPreset: rawLengthPreset } = body;
 
     // 타입 안전하게 변환
     const tone: ToneType = toToneType(body.tone);
     const outputFormat: OutputFormat = toOutputFormat(body.outputFormat);
+    
+    // lengthPreset 처리: custom이면 medium으로 변환
+    const lengthPreset: LengthPreset = rawLengthPreset === 'custom' ? 'medium' : (rawLengthPreset || 'medium');
 
     // 입력 검증
     if (!snippets || !goalType) {

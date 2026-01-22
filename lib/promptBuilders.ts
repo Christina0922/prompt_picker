@@ -16,7 +16,7 @@ export interface PromptOptions {
 }
 
 // 길이 설정에 대한 구체적인 지시문
-const lengthInstructions: Record<LengthPreset, Record<'ko' | 'en', string>> = {
+const lengthInstructions: Record<LengthPreset | 'custom', Record<'ko' | 'en', string>> = {
   short: {
     ko: '간결하게, 핵심만 포함하여 짧게 작성',
     en: 'Write concisely, including only the essentials',
@@ -28,6 +28,10 @@ const lengthInstructions: Record<LengthPreset, Record<'ko' | 'en', string>> = {
   detailed: {
     ko: '상세한 설명과 예시를 포함하여 길게 작성',
     en: 'Write in detail with comprehensive explanations and examples',
+  },
+  custom: {
+    ko: '사용자가 지정한 길이에 맞게 작성',
+    en: 'Write according to the user-specified length',
   },
 };
 
@@ -72,7 +76,8 @@ Please write in ${outputFormat} format based on the above input.`;
 // Claude 스타일: 태그 형태로 구획 분리
 export function buildClaudePrompt(options: PromptOptions, variant: string): string {
   const { snippets, goalType, language, tone, lengthPreset, outputFormat } = options;
-  const lengthInstruction = lengthInstructions[lengthPreset][language];
+  const preset = lengthPreset === 'custom' ? 'medium' : lengthPreset;
+  const lengthInstruction = lengthInstructions[preset]?.[language] || lengthInstructions.medium[language];
 
   if (language === 'ko') {
     return `<role>
@@ -118,7 +123,8 @@ Analyze the input above and generate results in ${outputFormat} format.
 // Gemini 스타일: 제약/출력형식 앞쪽 고정, 짧고 명확하게
 export function buildGeminiPrompt(options: PromptOptions, variant: string): string {
   const { snippets, goalType, language, tone, lengthPreset, outputFormat } = options;
-  const lengthInstruction = lengthInstructions[lengthPreset][language];
+  const preset = lengthPreset === 'custom' ? 'medium' : lengthPreset;
+  const lengthInstruction = lengthInstructions[preset]?.[language] || lengthInstructions.medium[language];
 
   if (language === 'ko') {
     return `제약조건:
@@ -168,7 +174,8 @@ export const variantStrategies: Record<'ko' | 'en', Record<string, string>> = {
 };
 
 export function buildPromptForAI(options: PromptOptions, variantKey: keyof typeof variantStrategies.ko): string {
-  const variant = variantStrategies[options.language][variantKey];
+  const lang = options.language === 'ko' ? 'ko' : 'en';
+  const variant = variantStrategies[lang]?.[variantKey] || variantStrategies.ko[variantKey];
 
   switch (options.aiTarget) {
     case 'chatgpt':

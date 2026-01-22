@@ -96,28 +96,37 @@
 .chip {
   border: 1px solid rgba(15, 23, 42, 0.14);
   background: #ffffff;
-  color: rgba(11, 18, 32, 0.84);
+  color: rgba(11, 18, 32, 0.70);
   border-radius: 999px;
   padding: 9px 12px;
   font-size: 13px;
   font-weight: 900;
   letter-spacing: -0.01em;
   cursor: pointer;
-  transition: background 0.12s ease, transform 0.05s ease, border-color 0.12s ease;
+  transition: all 0.2s ease;
 }
 
-.chip:hover {
-  background: rgba(15, 23, 42, 0.03);
+.chip:hover:not(.active) {
+  background: rgba(15, 23, 42, 0.04);
+  border-color: rgba(15, 23, 42, 0.20);
+  color: rgba(11, 18, 32, 0.85);
 }
 
 .chip:active {
   transform: translateY(1px);
 }
 
-.active {
-  background: rgba(11, 18, 32, 0.06);
-  border-color: rgba(11, 18, 32, 0.22);
-  color: #0b1220;
+.chip.active {
+  background: #0b1220 !important;
+  border-color: #0b1220 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 6px rgba(11, 18, 32, 0.20);
+}
+
+.chip.active:hover {
+  background: #0b1220 !important;
+  border-color: #0b1220 !important;
+  color: #ffffff !important;
 }
 
 .advanced {
@@ -134,6 +143,39 @@
   gap: 10px;
   flex-wrap: wrap;
   padding: 8px 0;
+}
+
+.advTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-bottom: 10px;
+}
+
+.advTableLabel {
+  padding: 10px 12px;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: rgba(11, 18, 32, 0.68);
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  width: 80px;
+}
+
+.advTableOptions {
+  padding: 10px 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.advTableOptions .row {
+  margin-top: 0;
+}
+
+.advTable tbody tr:last-child .advTableLabel,
+.advTable tbody tr:last-child .advTableOptions {
+  border-bottom: none;
 }
 
 .advGrid {
@@ -160,6 +202,40 @@
 .input:focus {
   border-color: rgba(11, 18, 32, 0.35);
   box-shadow: 0 0 0 4px rgba(11, 18, 32, 0.08);
+}
+
+.lengthInputs {
+  margin-top: 8px;
+  display: flex;
+  gap: 8px;
+}
+
+.lengthInputRow {
+  flex: 1;
+}
+
+.lengthInput {
+  width: 100%;
+  border: 1px solid rgba(15, 23, 42, 0.14);
+  border-radius: 14px;
+  padding: 9px 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  letter-spacing: -0.02em;
+  outline: none;
+  background: #ffffff;
+  color: #0b1220;
+  box-shadow: 0 1px 2px rgba(2, 6, 23, 0.04);
+  transition: all 0.2s ease;
+}
+
+.lengthInput:focus {
+  border-color: rgba(11, 18, 32, 0.35);
+  box-shadow: 0 0 0 4px rgba(11, 18, 32, 0.08);
+}
+
+.lengthInput::placeholder {
+  color: rgba(11, 18, 32, 0.45);
 }
 
 .actions {
