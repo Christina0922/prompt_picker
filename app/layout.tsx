@@ -1,22 +1,22 @@
-// app/layout.tsx
+import type { Metadata } from "next";
+import React from "react";
+import AppShell from "@/components/layout/AppShell";
 import "./globals.css";
 
-import * as React from "react";
-import AppShell from "@/components/layout/AppShell";
-import { UiLangProvider } from "@/components/tool/UiLangProvider";
-
-export const metadata = {
+export const metadata: Metadata = {
   title: "Prompt Picker",
-  description: "경영·기획 전문가용 B2B 프롬프트 생성기",
+  description: "Prompt Picker",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="ko">
       <body>
-        <UiLangProvider>
-          <AppShell>{children}</AppShell>
-        </UiLangProvider>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );
