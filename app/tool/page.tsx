@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ToolLayout from '@/components/tool/ToolLayout';
 import SnippetCard from '@/components/tool/SnippetCard';
 import SelectorsCard from '@/components/tool/SelectorsCard';
@@ -10,16 +10,26 @@ import FinalPanel from '@/components/tool/FinalPanel';
 import ProGateModal from '@/components/ProGateModal';
 import Button from '@/components/ui/Button';
 import { checkRateLimit, getRemainingRequests } from '@/lib/rateLimit';
+import { getOutputLang, setOutputLang, type UiLang } from '@/lib/i18n/storage';
 
 export default function ToolPage() {
   // Form state
   const [snippets, setSnippets] = useState('');
   const [goalType, setGoalType] = useState('content');
   const [aiTarget, setAiTarget] = useState('auto');
-  const [language, setLanguage] = useState<'ko' | 'en'>('ko');
+  const [outputLang, setOutputLangState] = useState<UiLang>('kr');
   const [tone, setTone] = useState('professional');
   const [length, setLength] = useState('medium');
   const [outputFormat, setOutputFormat] = useState('paragraph');
+
+  useEffect(() => {
+    setOutputLangState(getOutputLang());
+  }, []);
+
+  const handleOutputLangChange = (lang: UiLang) => {
+    setOutputLangState(lang);
+    setOutputLang(lang);
+  };
 
   // Result state
   const [isGenerating, setIsGenerating] = useState(false);
@@ -65,7 +75,7 @@ export default function ToolPage() {
           snippets,
           goalType,
           aiTarget,
-          language,
+          language: outputLang === 'kr' ? 'ko' : 'en',
           tone,
           lengthPreset: length,
           outputFormat,
@@ -240,8 +250,8 @@ export default function ToolPage() {
           {/* Advanced */}
           <div className="mb-8">
             <AdvancedOptionsCard
-              language={language}
-              onLanguageChange={setLanguage}
+              outputLang={outputLang}
+              onOutputLangChange={handleOutputLangChange}
               tone={tone}
               onToneChange={setTone}
               outputFormat={outputFormat}

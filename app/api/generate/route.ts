@@ -144,7 +144,7 @@ JSON 형식으로만 응답하세요: {"organized": "정리된 내용"}`;
     const organizedSnippets = organizeResult.organized || snippets;
 
     // 2단계: 5개 후보 프롬프트 생성
-    const variantKeys = Object.keys(variantStrategies) as Array<keyof typeof variantStrategies>;
+    const variantKeys = ['A', 'B', 'C', 'D', 'E'] as const;
     const options: PromptOption[] = [];
 
     for (const variantKey of variantKeys) {
