@@ -1,11 +1,56 @@
-// lib/i18n/UiLangProvider.tsx
 "use client";
 
-/**
- * ✅ 단일 소스 유지용 중계 파일
- * - 프로젝트 어디에서든 lib/i18n 경로로 import 하더라도,
- *   실제 구현은 components/tool/UiLangProvider 한 군데만 사용하게 고정합니다.
- * - 이렇게 하면 중복 Context/중복 훅/throw 훅 문제로 빌드가 깨지는 것을 막습니다.
- */
+import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-export * from "@/components/tool/UiLangProvider";
+export type UiLang = "kr" | "en";
+
+export type UiLangContextValue = {
+  uiLang: UiLang;
+  setUiLang: (lang: UiLang) => void;
+  t: (kr: string, en: string) => string;
+};
+
+const UiLangContext = createContext<UiLangContextValue | null>(null);
+
+function getInitialLang(): UiLang {
+  if (typeof window !== "undefined") {
+    const saved = window.localStorage.getItem("uiLang");
+    if (saved === "kr" || saved === "en") return saved;
+  }
+  if (typeof navigator !== "undefined") {
+    const n = (navigator.language || "").toLowerCase();
+    if (n.startsWith("en")) return "en";
+  }
+  return "kr";
+}
+
+export function UiLangProvider({ children }: { children: React.ReactNode }) {
+  const [uiLang, setUiLangState] = useState<UiLang>("kr");
+
+  useEffect(() => {
+    setUiLangState(getInitialLang());
+  }, []);
+
+  const setUiLang = (lang: UiLang) => {
+    setUiLangState(lang);
+    if (typeof window !== "undefined") {
+      window.localStorage.setItem("uiLang", lang);
+    }
+  };
+
+  const value = useMemo<UiLangContextValue>(() => {
+    return {
+      uiLang,
+      setUiLang,
+      t: (kr: string, en: string) => (uiLang === "en" ? en : kr),
+    };
+  }, [uiLang]);
+
+  return <UiLangContext.Provider value={value}>{children}</UiLangContext.Provider>;
+}
+
+export function useUiLang(): UiLangContextValue {
+  const ctx = useContext(UiLangContext);
+  if (!ctx) throw new Error("useUiLang must be used within UiLangProvider");
+  return ctx;
+}

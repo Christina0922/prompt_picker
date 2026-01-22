@@ -18,13 +18,15 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
 }
 
 function TopHeader() {
-  const { lang, setLang, t } = useUiLang() as unknown as {
-    lang: UiLang;
-    setLang: (next: UiLang) => void;
-    t?: (key: string) => string;
-  };
+  const { uiLang, setUiLang, t } = useUiLang();
+  const lang = (uiLang === "kr" ? "ko" : uiLang) as UiLang;
 
-  const startLabel = typeof t === "function" ? t("start") : "시작하기";
+  const startLabel = typeof t === "function" ? t("시작하기", "Get Started") : "시작하기";
+
+  const handleLangChange = (next: "ko" | "en") => {
+    const newLang: "kr" | "en" = next === "ko" ? "kr" : "en";
+    setUiLang(newLang);
+  };
 
   return (
     <header style={styles.header}>
@@ -37,7 +39,7 @@ function TopHeader() {
         </Link>
 
         <div style={styles.rightControls}>
-          <LangSegment lang={lang} setLang={setLang} />
+          <LangSegment lang={lang} setLang={handleLangChange} />
           <Link href="/tool" style={styles.startBtn}>
             {startLabel || "시작하기"}
           </Link>
@@ -177,26 +179,28 @@ const styles: Record<string, React.CSSProperties> = {
     padding: "8px 12px",
     minWidth: 44,
     borderRadius: 999,
-    background: "transparent",
-    color: "rgba(11, 18, 32, 0.70)",
+    background: "rgba(15, 23, 42, 0.04)",
+    color: "rgba(11, 18, 32, 0.60)",
     fontSize: 13,
     fontWeight: 900,
     letterSpacing: "-0.01em",
     lineHeight: 1,
+    transition: "all 0.2s ease",
   },
   segmentBtnActive: {
     color: "#ffffff",
-    boxShadow: "0 2px 6px rgba(2, 6, 23, 0.22)",
+    boxShadow: "0 2px 8px rgba(2, 6, 23, 0.25)",
+    fontWeight: 900,
   },
-  // 한국어 선택: 파란 계열
+  // 한국어 선택: 파란 계열 (더 밝고 뚜렷하게)
   segmentKoActive: {
-    background: "#1D4ED8", // blue-700
-    border: "1px solid rgba(29, 78, 216, 0.55)",
+    background: "#2563EB", // blue-600
+    border: "1px solid #1E40AF",
   },
-  // 영어 선택: 초록 계열
+  // 영어 선택: 초록 계열 (더 밝고 뚜렷하게)
   segmentEnActive: {
-    background: "#059669", // emerald-600
-    border: "1px solid rgba(5, 150, 105, 0.55)",
+    background: "#10B981", // emerald-500
+    border: "1px solid #047857",
   },
   segmentDivider: {
     width: 1,

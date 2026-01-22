@@ -1,317 +1,414 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import ToolLayout from '@/components/tool/ToolLayout';
-import SnippetCard from '@/components/tool/SnippetCard';
-import SelectorsCard from '@/components/tool/SelectorsCard';
-import AdvancedOptionsCard from '@/components/tool/AdvancedOptionsCard';
-import ResultsGrid, { type PromptOption } from '@/components/tool/ResultsGrid';
-import FinalPanel from '@/components/tool/FinalPanel';
-import ProGateModal from '@/components/ProGateModal';
-import Button from '@/components/ui/Button';
-import { checkRateLimit, getRemainingRequests } from '@/lib/rateLimit';
-import { getOutputLang, setOutputLang, type UiLang } from '@/lib/i18n/storage';
+import React from "react";
+import Link from "next/link";
+import styles from "./page.module.css";
+import ToolLayoutPro from "./ToolLayoutPro";
+import { useUiLang } from "@/lib/i18n/UiLangProvider";
 
-export default function ToolPage() {
-  // Form state
-  const [snippets, setSnippets] = useState('');
-  const [goalType, setGoalType] = useState('content');
-  const [aiTarget, setAiTarget] = useState('auto');
-  const [outputLang, setOutputLangState] = useState<UiLang>('kr');
-  const [tone, setTone] = useState('professional');
-  const [length, setLength] = useState('medium');
-  const [outputFormat, setOutputFormat] = useState('paragraph');
+type UiLang = "kr" | "en" | "ko";
 
-  useEffect(() => {
-    setOutputLangState(getOutputLang());
-  }, []);
+function FrameGuideTable() {
+  const { uiLang, t } = useUiLang();
+  const lang = (uiLang === "kr" ? "ko" : uiLang) as UiLang;
+  const isEn = lang === "en";
 
-  const handleOutputLangChange = (lang: UiLang) => {
-    setOutputLangState(lang);
-    setOutputLang(lang);
-  };
+  return (
+    <div className={styles.sideCard}>
+      <div className={styles.sideTitle}>
+        {isEn ? "Strategy Frame Table" : "전략 프레임 표"}
+      </div>
+      <div className={styles.sideDesc}>
+        {isEn
+          ? 'Even with the same input, "purpose/structure/tone" varies by frame.'
+          : '같은 입력이라도 프레임에 따라 "목적/구조/톤"이 달라집니다.'}
+      </div>
 
-  // Result state
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [options, setOptions] = useState<PromptOption[]>([]);
-  const [error, setError] = useState<string | null>(null);
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th style={{ width: 70 }}>{isEn ? "Frame" : "프레임"}</th>
+              <th>{isEn ? "Core Purpose" : "핵심 목적"}</th>
+              <th style={{ width: 160 }}>{isEn ? "Recommended Output" : "추천 산출"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles.tdStrong}>A</td>
+              <td>
+                {isEn
+                  ? "Minimize risk · Prioritize accuracy · Prevent errors"
+                  : "리스크 최소화 · 정확성 우선 · 실수 방지"}
+              </td>
+              <td>{isEn ? "Checklist / Risk log" : "체크리스트/리스크 로그"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>B</td>
+              <td>
+                {isEn
+                  ? "Performance design · Goal achievement · Conversion-focused"
+                  : "성과 설계 · 목표 달성 · 전환 중심"}
+              </td>
+              <td>{isEn ? "KPI / Experiment design / Campaign plan" : "KPI/실험 설계/캠페인 플랜"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>C</td>
+              <td>
+                {isEn
+                  ? "Structuring · Documentation · Actionable organization"
+                  : "구조화 · 문서화 · 실행 가능한 정리"}
+              </td>
+              <td>{isEn ? "Report / Proposal / Meeting agenda" : "보고서/기획서/회의 아젠다"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>D</td>
+              <td>
+                {isEn
+                  ? "Expansion exploration · Alternative divergence · Ideas"
+                  : "확장 탐색 · 대안 발산 · 아이디어"}
+              </td>
+              <td>{isEn ? "Alternative comparison / Priority / Idea map" : "대안 비교/우선순위/아이디어 맵"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>E</td>
+              <td>
+                {isEn
+                  ? "Summary · Decision support · Essentials only"
+                  : "요약 · 의사결정 지원 · 핵심만"}
+              </td>
+              <td>{isEn ? "1-page summary / Key conclusions" : "1페이지 요약/핵심 결론"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-  // Final prompt state
-  const [selectedPrompt, setSelectedPrompt] = useState<PromptOption | null>(null);
-  const [finalPrompt, setFinalPrompt] = useState('');
-  const [showFinalPanel, setShowFinalPanel] = useState(false);
+      <div className={styles.sideNote}>
+        {isEn
+          ? "Recommended flow: C(Structuring) → B(Performance) → A(Risk)"
+          : "추천 흐름: C(구조화) → B(성과) → A(리스크)"}
+      </div>
+    </div>
+  );
+}
 
-  // Rate limit state
-  const [showProModal, setShowProModal] = useState(false);
-  const [rateLimitInfo, setRateLimitInfo] = useState({ remaining: 3, resetsAt: new Date() });
+function MainCardHeader() {
+  const { uiLang } = useUiLang();
+  const lang = (uiLang === "kr" ? "ko" : uiLang) as UiLang;
+  const isEn = lang === "en";
 
-  const remaining = getRemainingRequests();
+  return (
+    <div className={styles.mainCardHeader}>
+      <div className={styles.mainCardTitle}>
+        {isEn ? "Generation Settings" : "생성 설정"}
+      </div>
+      <div className={styles.mainCardSub}>
+        {isEn
+          ? "Input → Options → Generate → Copy Results. Configured for practical workflow."
+          : "입력 → 옵션 → 생성 → 결과 복사. 실무 흐름에 맞춘 구성입니다."}
+      </div>
+    </div>
+  );
+}
 
-  const handleGenerate = async () => {
-    if (!snippets.trim()) {
-      setError('조각을 입력해주세요');
-      return;
-    }
+function InputChecklistTable() {
+  const { uiLang, t } = useUiLang();
+  const lang = (uiLang === "kr" ? "ko" : uiLang) as UiLang;
+  const isEn = lang === "en";
 
-    const rateLimit = checkRateLimit();
-    if (!rateLimit.allowed) {
-      setRateLimitInfo({
-        remaining: rateLimit.remaining,
-        resetsAt: rateLimit.resetsAt,
-      });
-      setShowProModal(true);
-      return;
-    }
+  return (
+    <div className={styles.sideCard}>
+      <div className={styles.sideTitle}>
+        {isEn ? "Practical Input Checklist" : "실무 입력 체크표"}
+      </div>
+      <div className={styles.sideDesc}>
+        {isEn
+          ? 'Sufficient without sensitive information. Structured with "categorical input" only.'
+          : '민감 정보 없이도 충분합니다. "범주형 입력"만으로 구조화됩니다.'}
+      </div>
 
-    setIsGenerating(true);
-    setError(null);
-    setOptions([]);
+      <div className={styles.tableWrap}>
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th style={{ width: 120 }}>{isEn ? "Item" : "항목"}</th>
+              <th>{isEn ? "Recommended Input" : "권장 입력"}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className={styles.tdStrong}>{isEn ? "Purpose" : "목적"}</td>
+              <td>{isEn ? "Generate / Analyze / Summarize / Translate / Code / Document" : "생성/분석/요약/번역/코드/문서"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>{isEn ? "Target" : "대상"}</td>
+              <td>{isEn ? "Customer / Internal / Executive · Age group · Channel" : "고객/내부/임원 · 연령대 · 채널"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>{isEn ? "Constraints" : "제약"}</td>
+              <td>{isEn ? "Tone · Prohibited words · Length · Required elements" : "톤 · 금지어 · 길이 · 필수 포함 요소"}</td>
+            </tr>
+            <tr>
+              <td className={styles.tdStrong}>{isEn ? "Output Format" : "산출 형식"}</td>
+              <td>{isEn ? "Table / List / Template / Checklist" : "표/리스트/템플릿/체크리스트"}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    try {
-      const response = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          snippets,
-          goalType,
-          aiTarget,
-          language: outputLang === 'kr' ? 'ko' : 'en',
-          tone,
-          lengthPreset: length,
-          outputFormat,
-        }),
-      });
+      <div className={styles.sideNote}>
+        {isEn
+          ? "Not recommended: Personal identification info, real names/contacts, internal confidential documents, full contract text"
+          : "비권장: 개인식별정보, 실명/연락처, 내부 기밀 원문, 계약서 전문"}
+      </div>
+    </div>
+  );
+}
 
-      const data = await response.json();
+function ToolHeader() {
+  const { uiLang, setUiLang } = useUiLang();
+  const lang = (uiLang === "kr" ? "ko" : uiLang) as UiLang;
 
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || '생성에 실패했습니다');
-      }
+  const isKo = lang === "ko";
+  const isEn = lang === "en";
 
-      setOptions(data.options || []);
-      
-      setTimeout(() => {
-        document.getElementById('results')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
-    } catch (err: any) {
-      setError(err.message || '결과 생성에 실패했습니다. 조각을 조금 더 구체적으로 적어주세요.');
-    } finally {
-      setIsGenerating(false);
-    }
-  };
+  const kicker = isKo
+    ? "실무용 프롬프트 · 프레임 기반 · 즉시 복사"
+    : "Practical prompts · Frame-based · Copy-ready";
+  const title = isKo ? "프롬프트 생성기" : "Prompt Generator";
+  const desc = isKo
+    ? "목적과 옵션을 선택하면 같은 입력도 프레임별로 다르게 정리됩니다. 결과는 바로 복사 가능한 형태로 출력됩니다."
+    : "Choose a goal and options. The same input will be organized differently per frame. Results are output in a copy-ready format.";
 
-  const handleSelectPrompt = (option: PromptOption) => {
-    setSelectedPrompt(option);
-    setFinalPrompt(option.promptText);
-    setShowFinalPanel(true);
-  };
-
-  const handleTune = async (
-    tuneType: 'shorter' | 'moreSpecific' | 'charLimit',
-    charLimitValue?: number
-  ) => {
-    if (!finalPrompt) return;
-
-    try {
-      const response = await fetch('/api/tune', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          finalPrompt,
-          tuneType,
-          charLimitValue,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.error || '튜닝에 실패했습니다');
-      }
-
-      setFinalPrompt(data.tunedPrompt);
-    } catch (err: any) {
-      console.error('Tune error:', err);
-    }
+  const handleLangChange = (next: "ko" | "en") => {
+    const newLang: "kr" | "en" = next === "ko" ? "kr" : "en";
+    setUiLang(newLang);
   };
 
   return (
-    <ToolLayout remaining={remaining} onUpgradeClick={() => setShowProModal(true)}>
-      <div className="container-saas py-12">
-        {/* Hero */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-gray-900 mb-3">
-            프롬프트 생성기
-          </h1>
-          <p className="text-lg text-gray-600">
-            조각을 입력하면 5가지 전략의 프롬프트가 생성됩니다
-          </p>
-        </div>
-
-        <div className="max-w-6xl mx-auto">
-          {/* Main Grid */}
-          <div className="grid lg:grid-cols-5 gap-6 mb-6">
-            {/* Left: Input (3/5) */}
-            <div className="lg:col-span-3">
-              <div className="card-saas h-full">
-                <h2 className="text-xl font-bold text-gray-900 mb-4">입력</h2>
-                <textarea
-                  value={snippets}
-                  onChange={(e) => setSnippets(e.target.value)}
-                  placeholder="예: 운동화 광고, 2030 여성 타겟, 편안함 강조"
-                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all resize-none text-base placeholder:text-gray-400 leading-relaxed"
-                  rows={12}
+    <header style={toolHeaderStyles.header}>
+      <div style={toolHeaderStyles.headerInner}>
+        <div style={toolHeaderStyles.left}>
+          <div style={toolHeaderStyles.kicker}>{kicker}</div>
+          <div style={toolHeaderStyles.titleRow}>
+            <h1 style={toolHeaderStyles.title}>{title}</h1>
+            <div style={toolHeaderStyles.rightControls}>
+              <Link 
+                href="/" 
+                style={toolHeaderStyles.homeLink}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(15, 23, 42, 0.06)";
+                  e.currentTarget.style.color = "rgba(11, 18, 32, 0.90)";
+                  e.currentTarget.style.borderColor = "rgba(15, 23, 42, 0.20)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(15, 23, 42, 0.02)";
+                  e.currentTarget.style.color = "rgba(11, 18, 32, 0.70)";
+                  e.currentTarget.style.borderColor = "rgba(15, 23, 42, 0.12)";
+                }}
+              >
+                {isEn ? "Home" : "홈"}
+              </Link>
+              <div style={toolHeaderStyles.langToggle}>
+                <LangSegment
+                  lang={lang}
+                  setLang={handleLangChange}
                 />
-                <p className="text-xs text-gray-500 mt-3">
-                  쉼표 또는 줄바꿈으로 구분하여 입력하세요
-                </p>
-              </div>
-            </div>
-
-            {/* Right: Options (2/5) */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Goal */}
-              <div className="card-saas">
-                <h3 className="text-base font-bold text-gray-900 mb-3">목적</h3>
-                <div className="grid grid-cols-3 gap-2">
-                  {[
-                    { value: 'content', label: '콘텐츠' },
-                    { value: 'analysis', label: '분석' },
-                    { value: 'code', label: '코드' },
-                    { value: 'translation', label: '번역' },
-                    { value: 'creative', label: '창작' },
-                  ].map((goal) => (
-                    <button
-                      key={goal.value}
-                      onClick={() => setGoalType(goal.value)}
-                      className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                        goalType === goal.value
-                          ? 'bg-indigo-600 text-white shadow-md'
-                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
-                      }`}
-                    >
-                      {goal.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* AI */}
-              <div className="card-saas">
-                <h3 className="text-base font-bold text-gray-900 mb-3">AI 플랫폼</h3>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { value: 'auto', label: '자동' },
-                    { value: 'chatgpt', label: 'ChatGPT' },
-                    { value: 'claude', label: 'Claude' },
-                    { value: 'gemini', label: 'Gemini' },
-                  ].map((ai) => (
-                    <button
-                      key={ai.value}
-                      onClick={() => setAiTarget(ai.value)}
-                      className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                        aiTarget === ai.value
-                          ? 'bg-indigo-600 text-white shadow-md'
-                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
-                      }`}
-                    >
-                      {ai.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Length */}
-              <div className="card-saas">
-                <h3 className="text-base font-bold text-gray-900 mb-3">길이</h3>
-                <div className="space-y-2">
-                  {[
-                    { value: 'short', label: '짧게' },
-                    { value: 'medium', label: '보통' },
-                    { value: 'detailed', label: '상세' },
-                  ].map((len) => (
-                    <button
-                      key={len.value}
-                      onClick={() => setLength(len.value)}
-                      className={`w-full px-4 py-2.5 rounded-lg text-sm font-semibold text-left transition-all ${
-                        length === len.value
-                          ? 'bg-indigo-600 text-white shadow-md'
-                          : 'bg-gray-50 text-gray-700 hover:bg-gray-100 border-2 border-gray-200'
-                      }`}
-                    >
-                      {len.label}
-                    </button>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
-
-          {/* Advanced */}
-          <div className="mb-8">
-            <AdvancedOptionsCard
-              outputLang={outputLang}
-              onOutputLangChange={handleOutputLangChange}
-              tone={tone}
-              onToneChange={setTone}
-              outputFormat={outputFormat}
-              onOutputFormatChange={setOutputFormat}
-            />
-          </div>
-
-          {/* CTA */}
-          <div className="flex flex-col items-center gap-3 py-6">
-            <Button
-              onClick={handleGenerate}
-              disabled={isGenerating || !snippets.trim()}
-              size="lg"
-              className="min-w-[320px] h-14 text-lg font-bold shadow-lg"
-            >
-              {isGenerating ? '생성 중...' : '후보 5개 생성하기'}
-            </Button>
-            <p className="text-sm text-gray-500">무료 · 하루 3회까지</p>
-          </div>
-
-          {/* Error */}
-          {error && (
-            <div className="card-saas bg-red-50 border-2 border-red-200 mb-8">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h3 className="text-base font-bold text-red-900 mb-1">오류</h3>
-                  <p className="text-sm text-red-700">{error}</p>
-                </div>
-                <button onClick={() => setError(null)} className="text-red-400 hover:text-red-600 text-2xl font-bold ml-4">×</button>
-              </div>
-            </div>
-          )}
-
-          {/* Results */}
-          {options.length > 0 && (
-            <div id="results" className="mt-16">
-              <div className="text-center mb-10">
-                <h2 className="text-4xl font-bold text-gray-900 mb-2">생성 완료</h2>
-                <p className="text-lg text-gray-600">5가지 전략 중 하나를 선택하세요</p>
-              </div>
-              <ResultsGrid options={options} onSelect={handleSelectPrompt} />
-            </div>
-          )}
+          <p style={toolHeaderStyles.desc}>{desc}</p>
         </div>
       </div>
+    </header>
+  );
+}
 
-      <FinalPanel
-        isOpen={showFinalPanel}
-        prompt={finalPrompt}
-        onClose={() => setShowFinalPanel(false)}
-        onTune={handleTune}
-        isProUser={false}
-      />
+function LangSegment({
+  lang,
+  setLang,
+}: {
+  lang: UiLang;
+  setLang: (next: "ko" | "en") => void;
+}) {
+  const isKo = lang === "ko";
+  const isEn = lang === "en";
 
-      <ProGateModal
-        isOpen={showProModal}
-        onClose={() => setShowProModal(false)}
-        remaining={rateLimitInfo.remaining}
-        resetsAt={rateLimitInfo.resetsAt}
-      />
-    </ToolLayout>
+  return (
+    <div style={toolHeaderStyles.segmentWrap} role="group" aria-label="Language">
+      <button
+        type="button"
+        onClick={() => setLang("ko")}
+        aria-pressed={isKo}
+        aria-label="Korean"
+        style={{
+          ...toolHeaderStyles.segmentBtn,
+          ...(isKo
+            ? {
+                ...toolHeaderStyles.segmentBtnActive,
+                ...toolHeaderStyles.segmentKoActive,
+              }
+            : null),
+        }}
+      >
+        한
+      </button>
+
+      <span style={toolHeaderStyles.segmentDivider} aria-hidden="true" />
+
+      <button
+        type="button"
+        onClick={() => setLang("en")}
+        aria-pressed={isEn}
+        aria-label="English"
+        style={{
+          ...toolHeaderStyles.segmentBtn,
+          ...(isEn
+            ? {
+                ...toolHeaderStyles.segmentBtnActive,
+                ...toolHeaderStyles.segmentEnActive,
+              }
+            : null),
+        }}
+      >
+        EN
+      </button>
+    </div>
+  );
+}
+
+const toolHeaderStyles: Record<string, React.CSSProperties> = {
+  header: {
+    position: "sticky",
+    top: 0,
+    zIndex: 50,
+    background: "rgba(255,255,255,0.92)",
+    borderBottom: "1px solid rgba(15, 23, 42, 0.10)",
+    backdropFilter: "blur(10px)",
+  },
+  headerInner: {
+    maxWidth: 1120,
+    margin: "0 auto",
+    padding: "18px 18px 14px",
+  },
+  left: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 10,
+  },
+  kicker: {
+    fontSize: 13,
+    fontWeight: 900,
+    letterSpacing: "-0.01em",
+    color: "rgba(11, 18, 32, 0.62)",
+  },
+  titleRow: {
+    display: "flex",
+    alignItems: "baseline",
+    justifyContent: "space-between",
+    gap: 16,
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 34,
+    lineHeight: 1.14,
+    letterSpacing: "-0.04em",
+    fontWeight: 900,
+    color: "#0b1220",
+    margin: 0,
+  },
+  rightControls: {
+    display: "flex",
+    alignItems: "center",
+    gap: 12,
+    flexShrink: 0,
+  },
+  homeLink: {
+    fontSize: 14,
+    fontWeight: 600,
+    color: "rgba(11, 18, 32, 0.70)",
+    textDecoration: "none",
+    padding: "6px 12px",
+    borderRadius: 8,
+    transition: "all 0.2s ease",
+    border: "1px solid rgba(15, 23, 42, 0.12)",
+    background: "rgba(15, 23, 42, 0.02)",
+    display: "inline-block",
+  },
+  langToggle: {
+    flexShrink: 0,
+  },
+  desc: {
+    marginTop: 10,
+    maxWidth: 860,
+    fontSize: 14,
+    lineHeight: 1.7,
+    letterSpacing: "-0.02em",
+    color: "rgba(11, 18, 32, 0.76)",
+  },
+  segmentWrap: {
+    display: "inline-flex",
+    alignItems: "center",
+    padding: 4,
+    borderRadius: 999,
+    border: "1px solid rgba(15, 23, 42, 0.18)",
+    background: "rgba(15, 23, 42, 0.06)",
+    boxShadow: "0 1px 2px rgba(2, 6, 23, 0.06)",
+  },
+  segmentBtn: {
+    border: 0,
+    cursor: "pointer",
+    padding: "8px 12px",
+    minWidth: 44,
+    borderRadius: 999,
+    background: "rgba(15, 23, 42, 0.04)",
+    color: "rgba(11, 18, 32, 0.60)",
+    fontSize: 13,
+    fontWeight: 900,
+    letterSpacing: "-0.01em",
+    lineHeight: 1,
+    transition: "all 0.2s ease",
+  },
+  segmentBtnActive: {
+    color: "#ffffff",
+    boxShadow: "0 2px 8px rgba(2, 6, 23, 0.25)",
+    fontWeight: 900,
+  },
+  segmentKoActive: {
+    background: "#2563EB", // blue-600 (더 밝은 파란색)
+    border: "1px solid #1E40AF",
+  },
+  segmentEnActive: {
+    background: "#10B981", // emerald-500 (더 밝은 초록색)
+    border: "1px solid #047857",
+  },
+  segmentDivider: {
+    width: 1,
+    height: 18,
+    background: "rgba(15, 23, 42, 0.18)",
+  },
+};
+
+export default function ToolPage() {
+  return (
+    <div className={styles.page}>
+      <ToolHeader />
+      <div className={styles.container}>
+        <div className={styles.grid}>
+          <section className={styles.mainCard}>
+            <MainCardHeader />
+            <div className={styles.toolArea}>
+              <ToolLayoutPro />
+            </div>
+          </section>
+
+          <aside className={styles.side}>
+            <FrameGuideTable />
+            <div className={styles.sideGap} />
+            <InputChecklistTable />
+          </aside>
+        </div>
+      </div>
+    </div>
   );
 }

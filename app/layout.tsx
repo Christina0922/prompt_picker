@@ -1,22 +1,16 @@
-import type { Metadata } from "next";
-import React from "react";
-import AppShell from "@/components/layout/AppShell";
 import "./globals.css";
+import { UiLangProvider } from "@/lib/i18n/UiLangProvider";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Prompt Picker",
   description: "Prompt Picker",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko">
       <body>
-        <AppShell>{children}</AppShell>
+        <UiLangProvider>{children}</UiLangProvider>
       </body>
     </html>
   );
