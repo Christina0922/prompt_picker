@@ -13,7 +13,7 @@ interface ToolLayoutProps {
 }
 
 function LangToggle() {
-  const { uiLang, setUiLang } = useUiLang();
+  const { lang: uiLang, setLang: setUiLang } = useUiLang();
 
   return (
     <div className="flex items-center gap-1 bg-gray-100 p-1" role="tablist">

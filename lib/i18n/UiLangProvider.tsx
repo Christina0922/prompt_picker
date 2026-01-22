@@ -1,45 +1,11 @@
-'use client';
+// lib/i18n/UiLangProvider.tsx
+"use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { getUiLang, setUiLang, type UiLang } from './storage';
-import { STRINGS } from './strings';
+/**
+ * ✅ 단일 소스 유지용 중계 파일
+ * - 프로젝트 어디에서든 lib/i18n 경로로 import 하더라도,
+ *   실제 구현은 components/tool/UiLangProvider 한 군데만 사용하게 고정합니다.
+ * - 이렇게 하면 중복 Context/중복 훅/throw 훅 문제로 빌드가 깨지는 것을 막습니다.
+ */
 
-interface UiLangContextType {
-  uiLang: UiLang;
-  setUiLang: (lang: UiLang) => void;
-  t: (key: string) => string;
-}
-
-const UiLangContext = createContext<UiLangContextType | undefined>(undefined);
-
-export function UiLangProvider({ children }: { children: ReactNode }) {
-  const [uiLang, setUiLangState] = useState<UiLang>('kr');
-
-  useEffect(() => {
-    setUiLangState(getUiLang());
-  }, []);
-
-  const handleSetUiLang = (lang: UiLang) => {
-    setUiLangState(lang);
-    setUiLang(lang);
-  };
-
-  const t = (key: string): string => {
-    return STRINGS[uiLang][key] || key;
-  };
-
-  return (
-    <UiLangContext.Provider value={{ uiLang, setUiLang: handleSetUiLang, t }}>
-      {children}
-    </UiLangContext.Provider>
-  );
-}
-
-export function useUiLang() {
-  const context = useContext(UiLangContext);
-  if (!context) {
-    throw new Error('useUiLang must be used within UiLangProvider');
-  }
-  return context;
-}
-
+export * from "@/components/tool/UiLangProvider";

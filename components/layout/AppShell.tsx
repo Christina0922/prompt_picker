@@ -2,43 +2,18 @@
 "use client";
 
 import * as React from "react";
-
-type UiLang = "kr" | "en";
-
-function getInitialLang(): UiLang {
-  if (typeof window === "undefined") return "kr";
-
-  const saved = window.localStorage.getItem("pp_ui_lang");
-  if (saved === "kr" || saved === "en") return saved;
-
-  const nav = window.navigator.language?.toLowerCase() || "";
-  return nav.startsWith("ko") ? "kr" : "en";
-}
-
-function langLabel(lang: UiLang) {
-  return lang === "kr" ? "KR" : "EN";
-}
+import { useUiLang, uiLangLabel, UiLang } from "@/components/tool/UiLangProvider";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
-  const [lang, setLang] = React.useState<UiLang>("kr");
-
-  React.useEffect(() => {
-    setLang(getInitialLang());
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    window.localStorage.setItem("pp_ui_lang", lang);
-  }, [lang]);
+  const { lang, setLang } = useUiLang();
 
   return (
     <div className="min-h-screen">
       {/* HEADER */}
       <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/90 backdrop-blur">
         <div className="container-saas">
-          {/* ✅ 좌/우 정렬 고정 + 헤더 크기 키움 */}
           <div className="flex min-h-[92px] items-center justify-between gap-6 py-4">
-            {/* LEFT: Brand (✅ 한 줄: PP (Prompt Picker)) */}
+            {/* LEFT: Brand (한 줄: PP (Prompt Picker)) */}
             <div className="flex items-center gap-4">
               <span className="inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-3 text-xl font-extrabold tracking-wide text-gray-900 shadow-sm">
                 PP
@@ -52,7 +27,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
               </div>
             </div>
 
-            {/* RIGHT: Lang + CTA (✅ 오른쪽 정렬) */}
+            {/* RIGHT: Lang + CTA (오른쪽 정렬) */}
             <div className="ml-auto flex items-center justify-end gap-3">
               <div className="flex items-center rounded-lg border border-gray-300 bg-gray-50 p-1 shadow-sm">
                 {(["kr", "en"] as UiLang[]).map((v) => {
@@ -70,17 +45,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
                       aria-pressed={active}
                       onClick={() => setLang(v)}
                     >
-                      {langLabel(v)}
+                      {uiLangLabel(v)}
                     </button>
                   );
                 })}
               </div>
 
-              <a
-                href="#start"
-                className="btn-primary"
-                style={{ padding: "0.9rem 1.4rem" }}
-              >
+              <a href="#start" className="btn-primary" style={{ padding: "0.9rem 1.4rem" }}>
                 시작하기
               </a>
             </div>

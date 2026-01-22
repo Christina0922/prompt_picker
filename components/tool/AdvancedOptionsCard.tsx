@@ -38,7 +38,7 @@ export default function AdvancedOptionsCard({
   outputFormat,
   onOutputFormatChange,
 }: AdvancedOptionsCardProps) {
-  const { uiLang, t } = useUiLang();
+  const { lang: uiLang, t } = useUiLang();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
