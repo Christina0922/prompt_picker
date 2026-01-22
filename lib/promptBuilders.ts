@@ -1,7 +1,7 @@
 // Prompt builders for different AI targets
 
 export type AITarget = 'chatgpt' | 'claude' | 'gemini' | 'auto';
-export type LengthPreset = 'short' | 'medium' | 'detailed';
+export type LengthPreset = 'short' | 'medium' | 'detailed' | 'custom';
 export type ToneType = 'professional' | 'casual' | 'technical' | 'creative';
 export type OutputFormat = 'paragraph' | 'checklist' | 'table' | 'markdown' | 'json' | 'script';
 
@@ -38,7 +38,8 @@ const lengthInstructions: Record<LengthPreset | 'custom', Record<'ko' | 'en', st
 // ChatGPT 스타일: 역할/규칙/출력형식 순서화
 export function buildChatGPTPrompt(options: PromptOptions, variant: string): string {
   const { snippets, goalType, language, tone, lengthPreset, outputFormat } = options;
-  const lengthInstruction = lengthInstructions[lengthPreset][language];
+  const preset = lengthPreset === 'custom' ? 'medium' : lengthPreset;
+  const lengthInstruction = lengthInstructions[preset]?.[language] || lengthInstructions.medium[language];
 
   if (language === 'ko') {
     return `당신은 ${goalType} 전문가입니다.

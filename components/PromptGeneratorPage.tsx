@@ -34,7 +34,7 @@ export default function PromptGeneratorPage() {
     <main className="mx-auto w-full max-w-6xl px-6 py-10">
       {/* 상단: 제목 라인 + 언어 토글 (제목 베이스라인과 100% 정렬) */}
       <header className="w-full">
-        <div className="text-xs font-medium text-neutral-500">{T.topKicker}</div>
+        <div className="text-xs font-medium text-neutral-500">{T.kicker}</div>
 
         <div className="mt-2 flex items-baseline justify-between gap-4">
           <h1 className="text-4xl font-extrabold tracking-tight text-neutral-900">
