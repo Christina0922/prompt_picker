@@ -13,7 +13,7 @@ interface ToolLayoutProps {
 }
 
 function LangToggle() {
-  const { uiLang, setUiLang } = useUiLang();
+  const { lang: uiLang, setLang: setUiLang } = useUiLang();
 
   return (
     <div className="flex items-center gap-1 bg-gray-100 p-1" role="tablist">
@@ -46,7 +46,7 @@ function LangToggle() {
 }
 
 export default function ToolLayout({ children, remaining, onUpgradeClick }: ToolLayoutProps) {
-  const { uiLang, t } = useUiLang();
+  const { t } = useUiLang();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -68,13 +68,13 @@ export default function ToolLayout({ children, remaining, onUpgradeClick }: Tool
             <div className="flex items-center gap-4">
               <LangToggle />
               <div className="flex items-center gap-3 px-6 py-2.5 bg-gray-100 rounded-lg border border-gray-200">
-                <Badge variant="success">{t('무료', 'FREE')}</Badge>
+                <Badge variant="success">{t('nav.freeTrial')}</Badge>
                 <div className="text-sm text-gray-700">
-                  {t('오늘 남은', 'Remaining today')} <span className="font-bold text-gray-900">{remaining}</span>
+                  {t('nav.remaining')} <span className="font-bold text-gray-900">{remaining}</span>
                 </div>
               </div>
               <Button onClick={onUpgradeClick} size="sm">
-                {t('업그레이드', 'Upgrade')}
+                {t('nav.upgrade')}
               </Button>
             </div>
           </div>
