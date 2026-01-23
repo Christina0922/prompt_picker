@@ -39,6 +39,13 @@ function TopHeader() {
         </Link>
 
         <div style={styles.rightControls}>
+          <a
+            href="mailto:connect.geniusbrain@gmail.com"
+            style={styles.contactButton}
+            title={typeof t === "function" ? t("문의하기", "Contact Us") : "문의하기"}
+          >
+            {typeof t === "function" ? t("문의하기", "Contact") : "문의하기"}
+          </a>
           <LangSegment lang={lang} setLang={handleLangChange} />
         </div>
       </div>
@@ -158,6 +165,23 @@ const styles: Record<string, React.CSSProperties> = {
     alignItems: "center",
     gap: 12,
     flex: "0 0 auto",
+  },
+
+  contactButton: {
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "8px 16px",
+    borderRadius: 999,
+    border: "1px solid rgba(15, 23, 42, 0.18)",
+    background: "white",
+    color: "rgba(11, 18, 32, 0.80)",
+    fontSize: 13,
+    fontWeight: 600,
+    letterSpacing: "-0.01em",
+    textDecoration: "none",
+    transition: "all 0.2s ease",
+    boxShadow: "0 1px 2px rgba(2, 6, 23, 0.06)",
   },
 
   // ✅ 한/EN 구분 확실: 기본은 중립, 선택 시 색상 다르게

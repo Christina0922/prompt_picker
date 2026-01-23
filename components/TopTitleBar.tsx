@@ -33,6 +33,13 @@ export default function TopTitleBar() {
 
           {/* Right-aligned controls */}
           <div className={styles.controls}>
+            <a
+              href="mailto:connect.geniusbrain@gmail.com"
+              className={styles.contactButton}
+              title={t("문의하기", "Contact Us")}
+            >
+              {t("문의하기", "Contact")}
+            </a>
             <Link href="/" className={styles.homeButton}>
               {t("홈", "Home")}
             </Link>
